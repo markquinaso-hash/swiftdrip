@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swift Drip Mobile Menu</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #efefef;
+      color: #111;
+    }
+    .menu-wrap {
+      max-width: 390px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #f3f3f3;
+      border-left: 1px solid rgba(0,0,0,0.06);
+      border-right: 1px solid rgba(0,0,0,0.06);
+      padding: 12px;
+    }
+    .title {
+      text-align: center;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: lowercase;
+      color: transparent;
+      -webkit-text-stroke: 1.5px #222;
+      margin: 8px 0 14px;
+    }
+    details.group,
+    details.subgroup {
+      background: #e9e9e9;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    details.group summary,
+    details.subgroup summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      padding: 14px 14px;
+      font-weight: 700;
+    }
+    details.group summary::-webkit-details-marker,
+    details.subgroup summary::-webkit-details-marker {
+      display: none;
+    }
+    .summary-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .icon {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: #fff;
+    }
+    .group-title {
+      font-size: 15px;
+      letter-spacing: 0.4px;
+    }
+    .chev {
+      font-size: 18px;
+      color: #333;
+      transition: transform 0.2s ease;
+    }
+    details[open] > summary .chev {
+      transform: rotate(180deg);
+    }
+    .subgroup-title {
+      font-size: 14px;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+    .subcontent {
+      background: #f4f4f4;
+      padding: 0 12px 10px;
+    }
+    .menu-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-size: 13px;
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .name {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+    }
+    .fav {
+      color: #ff6f6f;
+      font-size: 12px;
+      line-height: 1;
+    }
+    .price-btn {
+      min-width: 46px;
+      padding: 5px 8px;
+      border: none;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .price-btn:hover {
+      background: #111;
+      color: #fff;
+    }
+    .price-head {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+      font-size: 10px;
+      color: #666;
+      padding: 8px 0 4px;
+      text-transform: uppercase;
+    }
+    .price-head span:first-child { visibility: hidden; }
+    .note {
+      font-size: 10px;
+      color: #ff7a7a;
+      line-height: 1.4;
+      padding: 3px 0 8px 0;
+    }
+    .mini-heading {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      margin: 10px 0 4px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-wrap">
+    <div class="title">menu</div>
+
+    <details class="group" open>
+      <summary>
+        <span class="summary-left">
+          <span class="icon">☕</span>
+          <span class="group-title">Drinks</span>
+        </span>
+        <span class="chev">⌄</span>
+      </summary>
+
+      <details class="subgroup" open>
+        <summary>
+          <span class="subgroup-title">ESPRESSO</span>
+          <span class="chev">⌄</span>
+        </summary>
+        <div class="subcontent">
+          <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
+          <div class="menu-item"><div class="name">Americano</div><button class="price-btn">70</button><button class="price-btn">80</button></div>
+          <div class="menu-item"><div class="name">Biscoff Latte</div><button class="price-btn">115</button><button class="price-btn">130</button></div>
+          <div class="menu-item"><div class="name">Cafe Latte</div><button class="price-btn">95</button><button class="price-btn">110</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Caramel Macchiato</div><button class="price-btn">100</button><button class="price-btn">120</button></div>
+          <div class="menu-item"><div class="name">Cinnamon Coffee</div><button class="price-btn">100</button><button class="price-btn">110</button></div>
+          <div class="menu-item"><div class="name">Dark Mocha</div><button class="price-btn">110</button><button class="price-btn">130</button></div>
+          <div class="menu-item"><div class="name">Dirty Matcha</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>French Vanilla</div><button class="price-btn">100</button><button class="price-btn">110</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Nutella Coffee</div><button class="price-btn">115</button><button class="price-btn">130</button></div>
+          <div class="menu-item"><div class="name">Salted Caramel Latte</div><button class="price-btn">100</button><button class="price-btn">120</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Spanish Latte</div><button class="price-btn">100</button><button class="price-btn">110</button></div>
+          <div class="menu-item"><div class="name">Sweet Black</div><button class="price-btn">90</button><button class="price-btn">105</button></div>
+          <div class="menu-item"><div class="name">White Chocolate Mocha</div><button class="price-btn">100</button><button class="price-btn">120</button></div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary>
+          <span class="subgroup-title">FRAPUCCINO</span>
+          <span class="chev">⌄</span>
+        </summary>
+        <div class="subcontent">
+          <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
+          <div class="mini-heading">Cream Based</div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Apollo Choco Strawberry</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Dark Chocolate</div><button class="price-btn">125</button><button class="price-btn">155</button></div>
+          <div class="menu-item"><div class="name">Matcha</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Strawberries &amp; Cream</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Swiftdrip Chocolate</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Vanilla Oreo</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
+          <div class="menu-item"><div class="name">White Chocolate</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
+          <div class="menu-item"><div class="name">Mango Bliss</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
+          <div class="mini-heading">Coffee Based</div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Caramel Macchiato</div><button class="price-btn">130</button><button class="price-btn">160</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Dark Mocha</div><button class="price-btn">135</button><button class="price-btn">165</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Hershey Mocha</div><button class="price-btn">130</button><button class="price-btn">160</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Java Chip</div><button class="price-btn">130</button><button class="price-btn">160</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Salted Caramel</div><button class="price-btn">130</button><button class="price-btn">160</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Spanish Latte</div><button class="price-btn">130</button><button class="price-btn">160</button></div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary>
+          <span class="subgroup-title">MILK-BASED</span>
+          <span class="chev">⌄</span>
+        </summary>
+        <div class="subcontent">
+          <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Apollo Choco Strawberry</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
+          <div class="menu-item"><div class="name">Dark Chocolate</div><button class="price-btn">105</button><button class="price-btn">120</button></div>
+          <div class="menu-item"><div class="name">Matcha Latte</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
+          <div class="menu-item"><div class="name">Milky Nutella</div><button class="price-btn">110</button><button class="price-btn">125</button></div>
+          <div class="menu-item"><div class="name">Milky Oreo</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
+          <div class="menu-item"><div class="name">Salted Caramel</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
+          <div class="menu-item"><div class="name">Strawberry Matcha</div><button class="price-btn">105</button><button class="price-btn">120</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Strawberry Milk</div><button class="price-btn">95</button><button class="price-btn">110</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Swift Drip Chocolate</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary>
+          <span class="subgroup-title">LEMONADE</span>
+          <span class="chev">⌄</span>
+        </summary>
+        <div class="subcontent">
+          <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
+          <div class="menu-item"><div class="name">Blueberry</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
+          <div class="menu-item"><div class="name">Green Apple</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Lychee</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
+          <div class="menu-item"><div class="name">Passionfruit</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Strawberry</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Strawberry Lychee</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
+          <div class="menu-item"><div class="name">Strawberry Passionfruit</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
+          <div class="mini-heading">Extras</div>
+          <div class="menu-item"><div class="name">Fruit Jelly</div><button class="price-btn">10</button><span></span></div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary>
+          <span class="subgroup-title">EXTRAS</span>
+          <span class="chev">⌄</span>
+        </summary>
+        <div class="subcontent">
+          <div class="menu-item"><div class="name">Espresso Shot</div><button class="price-btn">30</button><span></span></div>
+          <div class="menu-item"><div class="name">Syrup</div><button class="price-btn">20</button><span></span></div>
+          <div class="menu-item"><div class="name">Coffee Jelly</div><button class="price-btn">20</button><span></span></div>
+          <div class="menu-item"><div class="name">Seasalt Cream</div><button class="price-btn">30</button><span></span></div>
+        </div>
+      </details>
+    </details>
+
+    <details class="group" open>
+      <summary>
+        <span class="summary-left">
+          <span class="icon">🍟</span>
+          <span class="group-title">Snacks</span>
+        </span>
+        <span class="chev">⌄</span>
+      </summary>
+
+      <details class="subgroup" open>
+        <summary><span class="subgroup-title">KOREAN CORNDOG</span><span class="chev">⌄</span></summary>
+        <div class="subcontent">
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Full Mozzarella</div><button class="price-btn">95</button><span></span></div>
+          <div class="menu-item"><div class="name">Sausage &amp; Mozzarella</div><button class="price-btn">85</button><span></span></div>
+          <div class="note">Choose 2 dip: mayo, ketchup, mustard, hot sauce</div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary><span class="subgroup-title">GRILLED SANDWICH</span><span class="chev">⌄</span></summary>
+        <div class="subcontent">
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Spam &amp; Cheese</div><button class="price-btn">75</button><span></span></div>
+          <div class="menu-item"><div class="name">Tuna &amp; Cheese</div><button class="price-btn">65</button><span></span></div>
+          <div class="menu-item"><div class="name">Nutella</div><button class="price-btn">50</button><span></span></div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary><span class="subgroup-title">FRIES</span><span class="chev">⌄</span></summary>
+        <div class="subcontent">
+          <div class="menu-item"><div class="name">Regular Fries</div><button class="price-btn">50</button><span></span></div>
+          <div class="note">Flavor: BBQ, cheese, sour cream, plain</div>
+          <div class="menu-item"><div class="name"><span class="fav">❤</span>Fries Overload</div><button class="price-btn">100</button><span></span></div>
+          <div class="note">made with fries, ground beef, cheese sauce &amp; grated cheese</div>
+          <div class="menu-item"><div class="name">Savory Fries</div><button class="price-btn">110</button><span></span></div>
+          <div class="note">made with fries, ground beef, cheese sauce &amp; BBQ sauce</div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary><span class="subgroup-title">NACHOS</span><span class="chev">⌄</span></summary>
+        <div class="subcontent">
+          <div class="menu-item"><div class="name">Cheesy Nachos</div><button class="price-btn">100</button><span></span></div>
+          <div class="note">made with nacho chips, ground beef, cheese sauce, garlic sauce &amp; grated cheese</div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary><span class="subgroup-title">CHICKEN POPPERS</span><span class="chev">⌄</span></summary>
+        <div class="subcontent">
+          <div class="menu-item"><div class="name">Chicken Poppers</div><button class="price-btn">120</button><span></span></div>
+          <div class="note">Choose your dip: garlic mayo or cheese dip</div>
+        </div>
+      </details>
+
+      <details class="subgroup">
+        <summary><span class="subgroup-title">PASTA</span><span class="chev">⌄</span></summary>
+        <div class="subcontent">
+          <div class="menu-item"><div class="name">Creamy Carbonara</div><button class="price-btn">120</button><span></span></div>
+          <div class="menu-item"><div class="name">Tuna Pesto</div><button class="price-btn">120</button><span></span></div>
+        </div>
+      </details>
+    </details>
+  </div>
+</body>
+</html>
