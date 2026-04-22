@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Swift Drip Mobile Menu</title>
   <style>
+    .logo {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 6px;
+}
+
+.logo img {
+  width: 60px;
+  height: auto;
+  object-fit: co    ntain;
+}
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -154,9 +166,13 @@
   </style>
 </head>
 <body>
-  <div class="menu-wrap">
-    <div class="title">menu</div>
+<div class="menu-wrap">
 
+  <div class="logo">
+    <img src="images/logo.png" alt="logo">
+  </div>
+
+  <div class="title">menu</div>
     <details class="group" open>
       <summary>
         <span class="summary-left">
