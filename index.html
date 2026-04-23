@@ -3,53 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swift Drip Mobile Menu</title>
+  <title>Swift Drip Menu with Cart</title>
   <style>
-
-.messenger-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: #0084FF;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  cursor: pointer;
-  z-index: 999;
-  transition: transform 0.2s ease;
-}
-
-.messenger-btn:hover {
-  transform: scale(1.1);
-}
-
-.messenger-btn img {
-  width: 30px;
-  height: 30px;
-}    
-    .logo {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0 6px;
-}
-
-.logo img {
-  width: 200px;
-  height: auto;
-  object-fit: contain;
-}
-
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background: #efefef;
       color: #111;
+      padding-bottom: 220px;
     }
+
     .menu-wrap {
       max-width: 390px;
       margin: 0 auto;
@@ -57,8 +21,21 @@
       background: #f3f3f3;
       border-left: 1px solid rgba(0,0,0,0.06);
       border-right: 1px solid rgba(0,0,0,0.06);
-      padding: 12px;
+      padding: 12px 12px 24px;
     }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 6px;
+    }
+
+    .logo img {
+      width: 200px;
+      height: auto;
+      object-fit: contain;
+    }
+
     .title {
       text-align: center;
       font-size: 24px;
@@ -67,6 +44,7 @@
       text-transform: lowercase;
       margin: 8px 0 14px;
     }
+
     details.group,
     details.subgroup {
       background: #e9e9e9;
@@ -75,6 +53,7 @@
       margin-bottom: 10px;
       border: 1px solid rgba(0,0,0,0.03);
     }
+
     details.group summary,
     details.subgroup summary {
       list-style: none;
@@ -86,16 +65,19 @@
       padding: 14px 14px;
       font-weight: 700;
     }
+
     details.group summary::-webkit-details-marker,
     details.subgroup summary::-webkit-details-marker {
       display: none;
     }
+
     .summary-left {
       display: flex;
       align-items: center;
       gap: 10px;
       min-width: 0;
     }
+
     .icon {
       width: 28px;
       height: 28px;
@@ -107,27 +89,33 @@
       font-size: 16px;
       background: #fff;
     }
+
     .group-title {
       font-size: 15px;
       letter-spacing: 0.4px;
     }
+
     .chev {
       font-size: 18px;
       color: #333;
       transition: transform 0.2s ease;
     }
+
     details[open] > summary .chev {
       transform: rotate(180deg);
     }
+
     .subgroup-title {
       font-size: 14px;
       letter-spacing: 2px;
       font-weight: 800;
     }
+
     .subcontent {
       background: #f4f4f4;
       padding: 0 12px 10px;
     }
+
     .menu-item {
       display: grid;
       grid-template-columns: 1fr auto auto;
@@ -137,32 +125,41 @@
       border-bottom: 1px solid rgba(0,0,0,0.05);
       font-size: 13px;
     }
+
     .menu-item:last-child { border-bottom: none; }
+
     .name {
       display: flex;
       align-items: center;
       gap: 4px;
       min-width: 0;
+      line-height: 1.3;
     }
+
     .fav {
       color: #ff6f6f;
       font-size: 12px;
       line-height: 1;
     }
+
     .price-btn {
-      min-width: 46px;
-      padding: 5px 8px;
+      min-width: 58px;
+      padding: 7px 8px;
       border: none;
       border-radius: 999px;
       background: #fff;
       box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
       font-size: 12px;
       cursor: pointer;
+      font-weight: 700;
+      transition: .2s ease;
     }
+
     .price-btn:hover {
       background: #111;
       color: #fff;
     }
+
     .price-head {
       display: grid;
       grid-template-columns: 1fr auto auto;
@@ -172,13 +169,16 @@
       padding: 8px 0 4px;
       text-transform: uppercase;
     }
+
     .price-head span:first-child { visibility: hidden; }
+
     .note {
       font-size: 10px;
       color: #ff7a7a;
       line-height: 1.4;
       padding: 3px 0 8px 0;
     }
+
     .mini-heading {
       font-size: 11px;
       font-weight: 800;
@@ -186,194 +186,498 @@
       margin: 10px 0 4px;
       text-transform: uppercase;
     }
+
+    .messenger-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #0084FF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 999;
+      transition: transform 0.2s ease;
+    }
+
+    .messenger-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .messenger-btn img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .cart-panel {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      width: 100%;
+      max-width: 390px;
+      background: #ffffff;
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.12);
+      padding: 12px;
+      z-index: 998;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .cart-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .cart-title {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .clear-btn {
+      border: none;
+      background: #f1f1f1;
+      border-radius: 999px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cart-items {
+      max-height: 160px;
+      overflow: auto;
+      margin-bottom: 10px;
+    }
+
+    .cart-empty {
+      font-size: 12px;
+      color: #666;
+      padding: 6px 0;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .cart-item:last-child { border-bottom: none; }
+
+    .cart-item-name {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .cart-item-meta {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 5px;
+    }
+
+    .qty-btn, .remove-btn {
+      border: none;
+      background: #efefef;
+      border-radius: 8px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .qty-label {
+      min-width: 18px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cart-summary {
+      display: grid;
+      gap: 8px;
+    }
+
+    .customer-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .totals {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      background: #0084FF;
+      color: white;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 12px;
+      cursor: pointer;
+    }
+
+    .checkout-btn:disabled {
+      background: #a9cfff;
+      cursor: not-allowed;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
 <div class="menu-wrap">
-
   <div class="logo">
     <img src="images/logo.png" alt="logo">
   </div>
 
   <div class="title">menu</div>
-    <details class="group" open>
+
+  <details class="group" open>
+    <summary>
+      <span class="summary-left">
+        <span class="icon">☕</span>
+        <span class="group-title">Drinks</span>
+      </span>
+      <span class="chev">⌄</span>
+    </summary>
+
+    <details class="subgroup">
       <summary>
-        <span class="summary-left">
-          <span class="icon">☕</span>
-          <span class="group-title">Drinks</span>
-        </span>
+        <span class="subgroup-title">ESPRESSO</span>
         <span class="chev">⌄</span>
       </summary>
-
-      <details class="subgroup">
-        <summary>
-          <span class="subgroup-title">ESPRESSO</span>
-          <span class="chev">⌄</span>
-        </summary>
-        <div class="subcontent">
-          <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
-          <div class="menu-item"><div class="name">Americano</div><button class="price-btn">70</button><button class="price-btn">80</button></div>
-          <div class="menu-item"><div class="name">Biscoff Latte<span class="fav">❤</span></div><button class="price-btn">115</button><button class="price-btn">130</button></div>
-          <div class="menu-item"><div class="name">Cafe Latte</div><button class="price-btn">95</button><button class="price-btn">110</button></div>
-          <div class="menu-item"><div class="name">Caramel Macchiato<span class="fav">❤</span></div><button class="price-btn">100</button><button class="price-btn">120</button></div>
-          <div class="menu-item"><div class="name">Cinnamon Coffee</div><button class="price-btn">100</button><button class="price-btn">110</button></div>
-          <div class="menu-item"><div class="name">Dark Mocha</div><button class="price-btn">110</button><button class="price-btn">130</button></div>
-          <div class="menu-item"><div class="name">Dirty Matcha</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
-          <div class="menu-item"><div class="name">French Vanilla</div><button class="price-btn">100</button><button class="price-btn">110</button></div>
-          <div class="menu-item"><div class="name">Hershey Mocha<span class="fav">❤</span></div><button class="price-btn">100</button><button class="price-btn">110</button></div>
-          <div class="menu-item"><div class="name">Nutella Coffee<span class="fav">❤</span></div><button class="price-btn">115</button><button class="price-btn">130</button></div>
-          <div class="menu-item"><div class="name">Salted Caramel Latte</div><button class="price-btn">100</button><button class="price-btn">120</button></div>
-          <div class="menu-item"><div class="name">Spanish Latte<span class="fav">❤</span></div><button class="price-btn">100</button><button class="price-btn">110</button></div>
-          <div class="menu-item"><div class="name">Sweet Black</div><button class="price-btn">90</button><button class="price-btn">105</button></div>
-          <div class="menu-item"><div class="name">White Chocolate Mocha</div><button class="price-btn">100</button><button class="price-btn">120</button></div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary>
-          <span class="subgroup-title">FRAPUCCINO</span>
-          <span class="chev">⌄</span>
-        </summary>
-        <div class="subcontent">
-          <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
-          <div class="mini-heading">Cream Based</div>
-          <div class="menu-item"><div class="name">Apollo Choco Strawberry<span class="fav">❤</span></div><button class="price-btn">120</button><button class="price-btn">150</button></div>
-          <div class="menu-item"><div class="name">Dark Chocolate<span class="fav">❤</span></div><button class="price-btn">125</button><button class="price-btn">155</button></div>
-          <div class="menu-item"><div class="name">Matcha</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
-          <div class="menu-item"><div class="name">Strawberries &amp; Cream<span class="fav">❤</span></div><button class="price-btn">120</button><button class="price-btn">150</button></div>
-          <div class="menu-item"><div class="name">Swiftdrip Chocolate<span class="fav">❤</span></div><button class="price-btn">120</button><button class="price-btn">150</button></div>
-          <div class="menu-item"><div class="name">Vanilla Oreo<span class="fav">❤</span></div><button class="price-btn">120</button><button class="price-btn">150</button></div>
-          <div class="menu-item"><div class="name">White Chocolate</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
-          <div class="menu-item"><div class="name">Mango Bliss</div><button class="price-btn">120</button><button class="price-btn">150</button></div>
-          <div class="mini-heading">Coffee Based</div>
-          <div class="menu-item"><div class="name">Caramel Macchiato<span class="fav">❤</span></div><button class="price-btn">130</button><button class="price-btn">160</button></div>
-          <div class="menu-item"><div class="name">Dark Mocha<span class="fav">❤</span></div><button class="price-btn">135</button><button class="price-btn">165</button></div>
-          <div class="menu-item"><div class="name">Hershey Mocha</div><button class="price-btn">130</button><button class="price-btn">160</button></div>
-          <div class="menu-item"><div class="name">Java Chip<span class="fav">❤</span></div><button class="price-btn">130</button><button class="price-btn">160</button></div>
-          <div class="menu-item"><div class="name">Salted Caramel</div><button class="price-btn">130</button><button class="price-btn">160</button></div>
-          <div class="menu-item"><div class="name">Spanish Latte</div><button class="price-btn">130</button><button class="price-btn">160</button></div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary>
-          <span class="subgroup-title">MILK-BASED</span>
-          <span class="chev">⌄</span>
-        </summary>
-        <div class="subcontent">
-          <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
-          <div class="menu-item"><div class="name">Apollo Choco Strawberry<span class="fav">❤</span></div><button class="price-btn">100</button><button class="price-btn">115</button></div>
-          <div class="menu-item"><div class="name">Dark Chocolate<span class="fav">❤</span></div><button class="price-btn">105</button><button class="price-btn">120</button></div>
-          <div class="menu-item"><div class="name">Matcha Latte</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
-          <div class="menu-item"><div class="name">Milky Nutella</div><button class="price-btn">110</button><button class="price-btn">125</button></div>
-          <div class="menu-item"><div class="name">Milky Oreo<span class="fav">❤</span></div><button class="price-btn">100</button><button class="price-btn">115</button></div>
-          <div class="menu-item"><div class="name">Salted Caramel</div><button class="price-btn">100</button><button class="price-btn">115</button></div>
-          <div class="menu-item"><div class="name">Strawberry Matcha</div><button class="price-btn">105</button><button class="price-btn">120</button></div>
-          <div class="menu-item"><div class="name">Strawberry Milk<span class="fav">❤</span></div><button class="price-btn">95</button><button class="price-btn">110</button></div>
-          <div class="menu-item"><div class="name">Swift Drip Chocolate<span class="fav">❤</span></div><button class="price-btn">100</button><button class="price-btn">115</button></div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary>
-          <span class="subgroup-title">LEMONADE</span>
-          <span class="chev">⌄</span>
-        </summary>
-        <div class="subcontent">
-          <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
-          <div class="menu-item"><div class="name">Blueberry</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
-          <div class="menu-item"><div class="name">Green Apple<span class="fav">❤</span></div><button class="price-btn">60</button><button class="price-btn">70</button></div>
-          <div class="menu-item"><div class="name">Lychee<span class="fav">❤</span></div><button class="price-btn">60</button><button class="price-btn">70</button></div>
-          <div class="menu-item"><div class="name">Passionfruit</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
-          <div class="menu-item"><div class="name">Strawberry</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
-          <div class="menu-item"><div class="name">Strawberry Lychee<span class="fav">❤</span></div><button class="price-btn">60</button><button class="price-btn">70</button></div>
-          <div class="menu-item"><div class="name">Strawberry Passionfruit</div><button class="price-btn">60</button><button class="price-btn">70</button></div>
-          <div class="mini-heading">Extras</div>
-          <div class="menu-item"><div class="name">Fruit Jelly</div><button class="price-btn">10</button><span></span></div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary>
-          <span class="subgroup-title">EXTRAS</span>
-          <span class="chev">⌄</span>
-        </summary>
-        <div class="subcontent">
-          <div class="menu-item"><div class="name">Espresso Shot</div><button class="price-btn">30</button><span></span></div>
-          <div class="menu-item"><div class="name">Syrup</div><button class="price-btn">20</button><span></span></div>
-          <div class="menu-item"><div class="name">Coffee Jelly</div><button class="price-btn">20</button><span></span></div>
-          <div class="menu-item"><div class="name">Seasalt Cream</div><button class="price-btn">30</button><span></span></div>
-        </div>
-      </details>
+      <div class="subcontent">
+        <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
+        <div class="menu-item"><div class="name">Americano</div><button class="price-btn" data-name="Americano" data-size="Medium" data-price="70">70</button><button class="price-btn" data-name="Americano" data-size="Large" data-price="80">80</button></div>
+        <div class="menu-item"><div class="name">Biscoff Latte<span class="fav">❤</span></div><button class="price-btn" data-name="Biscoff Latte" data-size="Medium" data-price="115">115</button><button class="price-btn" data-name="Biscoff Latte" data-size="Large" data-price="130">130</button></div>
+        <div class="menu-item"><div class="name">Cafe Latte</div><button class="price-btn" data-name="Cafe Latte" data-size="Medium" data-price="95">95</button><button class="price-btn" data-name="Cafe Latte" data-size="Large" data-price="110">110</button></div>
+        <div class="menu-item"><div class="name">Caramel Macchiato<span class="fav">❤</span></div><button class="price-btn" data-name="Caramel Macchiato" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Caramel Macchiato" data-size="Large" data-price="120">120</button></div>
+        <div class="menu-item"><div class="name">Cinnamon Coffee</div><button class="price-btn" data-name="Cinnamon Coffee" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Cinnamon Coffee" data-size="Large" data-price="110">110</button></div>
+        <div class="menu-item"><div class="name">Dark Mocha</div><button class="price-btn" data-name="Dark Mocha" data-size="Medium" data-price="110">110</button><button class="price-btn" data-name="Dark Mocha" data-size="Large" data-price="130">130</button></div>
+        <div class="menu-item"><div class="name">Dirty Matcha</div><button class="price-btn" data-name="Dirty Matcha" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Dirty Matcha" data-size="Large" data-price="115">115</button></div>
+        <div class="menu-item"><div class="name">French Vanilla</div><button class="price-btn" data-name="French Vanilla" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="French Vanilla" data-size="Large" data-price="110">110</button></div>
+        <div class="menu-item"><div class="name">Hershey Mocha<span class="fav">❤</span></div><button class="price-btn" data-name="Hershey Mocha" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Hershey Mocha" data-size="Large" data-price="110">110</button></div>
+        <div class="menu-item"><div class="name">Nutella Coffee<span class="fav">❤</span></div><button class="price-btn" data-name="Nutella Coffee" data-size="Medium" data-price="115">115</button><button class="price-btn" data-name="Nutella Coffee" data-size="Large" data-price="130">130</button></div>
+        <div class="menu-item"><div class="name">Salted Caramel Latte</div><button class="price-btn" data-name="Salted Caramel Latte" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Salted Caramel Latte" data-size="Large" data-price="120">120</button></div>
+        <div class="menu-item"><div class="name">Spanish Latte<span class="fav">❤</span></div><button class="price-btn" data-name="Spanish Latte" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Spanish Latte" data-size="Large" data-price="110">110</button></div>
+        <div class="menu-item"><div class="name">Sweet Black</div><button class="price-btn" data-name="Sweet Black" data-size="Medium" data-price="90">90</button><button class="price-btn" data-name="Sweet Black" data-size="Large" data-price="105">105</button></div>
+        <div class="menu-item"><div class="name">White Chocolate Mocha</div><button class="price-btn" data-name="White Chocolate Mocha" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="White Chocolate Mocha" data-size="Large" data-price="120">120</button></div>
+      </div>
     </details>
 
-    <details class="group" open>
-      <summary>
-        <span class="summary-left">
-          <span class="icon">🍟</span>
-          <span class="group-title">Snacks</span>
-        </span>
-        <span class="chev">⌄</span>
-      </summary>
-
-      <details class="subgroup">
-        <summary><span class="subgroup-title">KOREAN CORNDOG</span><span class="chev">⌄</span></summary>
-        <div class="subcontent">
-          <div class="menu-item"><div class="name">Full Mozzarella<span class="fav">❤</span></div><button class="price-btn">95</button><span></span></div>
-          <div class="menu-item"><div class="name">Sausage &amp; Mozzarella</div><button class="price-btn">85</button><span></span></div>
-          <div class="note">Choose 2 dip: mayo, ketchup, mustard, hot sauce</div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary><span class="subgroup-title">GRILLED SANDWICH</span><span class="chev">⌄</span></summary>
-        <div class="subcontent">
-          <div class="menu-item"><div class="name">Spam &amp; Cheese<span class="fav">❤</span></div><button class="price-btn">75</button><span></span></div>
-          <div class="menu-item"><div class="name">Tuna &amp; Cheese</div><button class="price-btn">65</button><span></span></div>
-          <div class="menu-item"><div class="name">Nutella</div><button class="price-btn">50</button><span></span></div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary><span class="subgroup-title">FRIES</span><span class="chev">⌄</span></summary>
-        <div class="subcontent">
-          <div class="menu-item"><div class="name">Regular Fries</div><button class="price-btn">50</button><span></span></div>
-          <div class="note">Flavor: BBQ, cheese, sour cream, plain</div>
-          <div class="menu-item"><div class="name">Fries Overload<span class="fav">❤</span></div><button class="price-btn">100</button><span></span></div>
-          <div class="note">made with fries, ground beef, cheese sauce &amp; grated cheese</div>
-          <div class="menu-item"><div class="name">Savory Fries</div><button class="price-btn">110</button><span></span></div>
-          <div class="note">made with fries, ground beef, cheese sauce &amp; BBQ sauce</div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary><span class="subgroup-title">NACHOS</span><span class="chev">⌄</span></summary>
-        <div class="subcontent">
-          <div class="menu-item"><div class="name">Cheesy Nachos<span class="fav">❤</span></div><button class="price-btn">100</button><span></span></div>
-          <div class="note">made with nacho chips, ground beef, cheese sauce, garlic sauce &amp; grated cheese</div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary><span class="subgroup-title">CHICKEN POPPERS</span><span class="chev">⌄</span></summary>
-        <div class="subcontent">
-          <div class="menu-item"><div class="name">Chicken Poppers<span class="fav">❤</span></div><button class="price-btn">120</button><span></span></div>
-          <div class="note">Choose your dip: garlic mayo or cheese dip</div>
-        </div>
-      </details>
-
-      <details class="subgroup">
-        <summary><span class="subgroup-title">PASTA</span><span class="chev">⌄</span></summary>
-        <div class="subcontent">
-          <div class="menu-item"><div class="name">Creamy Carbonara<span class="fav">❤</span></div><button class="price-btn">120</button><span></span></div>
-          <div class="menu-item"><div class="name">Tuna Pesto<span class="fav">❤</span></div><button class="price-btn">120</button><span></span></div>
-        </div>
-      </details>
+    <details class="subgroup">
+      <summary><span class="subgroup-title">FRAPUCCINO</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
+        <div class="mini-heading">Cream Based</div>
+        <div class="menu-item"><div class="name">Apollo Choco Strawberry<span class="fav">❤</span></div><button class="price-btn" data-name="Apollo Choco Strawberry" data-size="Medium" data-price="120">120</button><button class="price-btn" data-name="Apollo Choco Strawberry" data-size="Large" data-price="150">150</button></div>
+        <div class="menu-item"><div class="name">Dark Chocolate<span class="fav">❤</span></div><button class="price-btn" data-name="Dark Chocolate (Cream Based)" data-size="Medium" data-price="125">125</button><button class="price-btn" data-name="Dark Chocolate (Cream Based)" data-size="Large" data-price="155">155</button></div>
+        <div class="menu-item"><div class="name">Matcha</div><button class="price-btn" data-name="Matcha" data-size="Medium" data-price="120">120</button><button class="price-btn" data-name="Matcha" data-size="Large" data-price="150">150</button></div>
+        <div class="menu-item"><div class="name">Strawberries &amp; Cream<span class="fav">❤</span></div><button class="price-btn" data-name="Strawberries & Cream" data-size="Medium" data-price="120">120</button><button class="price-btn" data-name="Strawberries & Cream" data-size="Large" data-price="150">150</button></div>
+        <div class="menu-item"><div class="name">Swiftdrip Chocolate<span class="fav">❤</span></div><button class="price-btn" data-name="Swiftdrip Chocolate" data-size="Medium" data-price="120">120</button><button class="price-btn" data-name="Swiftdrip Chocolate" data-size="Large" data-price="150">150</button></div>
+        <div class="menu-item"><div class="name">Vanilla Oreo<span class="fav">❤</span></div><button class="price-btn" data-name="Vanilla Oreo" data-size="Medium" data-price="120">120</button><button class="price-btn" data-name="Vanilla Oreo" data-size="Large" data-price="150">150</button></div>
+        <div class="menu-item"><div class="name">White Chocolate</div><button class="price-btn" data-name="White Chocolate" data-size="Medium" data-price="120">120</button><button class="price-btn" data-name="White Chocolate" data-size="Large" data-price="150">150</button></div>
+        <div class="menu-item"><div class="name">Mango Bliss</div><button class="price-btn" data-name="Mango Bliss" data-size="Medium" data-price="120">120</button><button class="price-btn" data-name="Mango Bliss" data-size="Large" data-price="150">150</button></div>
+        <div class="mini-heading">Coffee Based</div>
+        <div class="menu-item"><div class="name">Caramel Macchiato<span class="fav">❤</span></div><button class="price-btn" data-name="Caramel Macchiato (Coffee Based)" data-size="Medium" data-price="130">130</button><button class="price-btn" data-name="Caramel Macchiato (Coffee Based)" data-size="Large" data-price="160">160</button></div>
+        <div class="menu-item"><div class="name">Dark Mocha<span class="fav">❤</span></div><button class="price-btn" data-name="Dark Mocha (Coffee Based)" data-size="Medium" data-price="135">135</button><button class="price-btn" data-name="Dark Mocha (Coffee Based)" data-size="Large" data-price="165">165</button></div>
+        <div class="menu-item"><div class="name">Hershey Mocha</div><button class="price-btn" data-name="Hershey Mocha (Coffee Based)" data-size="Medium" data-price="130">130</button><button class="price-btn" data-name="Hershey Mocha (Coffee Based)" data-size="Large" data-price="160">160</button></div>
+        <div class="menu-item"><div class="name">Java Chip<span class="fav">❤</span></div><button class="price-btn" data-name="Java Chip" data-size="Medium" data-price="130">130</button><button class="price-btn" data-name="Java Chip" data-size="Large" data-price="160">160</button></div>
+        <div class="menu-item"><div class="name">Salted Caramel</div><button class="price-btn" data-name="Salted Caramel (Coffee Based)" data-size="Medium" data-price="130">130</button><button class="price-btn" data-name="Salted Caramel (Coffee Based)" data-size="Large" data-price="160">160</button></div>
+        <div class="menu-item"><div class="name">Spanish Latte</div><button class="price-btn" data-name="Spanish Latte (Coffee Based)" data-size="Medium" data-price="130">130</button><button class="price-btn" data-name="Spanish Latte (Coffee Based)" data-size="Large" data-price="160">160</button></div>
+      </div>
     </details>
-  </div>'
-  
-<a href="https://m.me/swiftdrip.espresso" target="_blank" class="messenger-btn">
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">MILK-BASED</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
+        <div class="menu-item"><div class="name">Apollo Choco Strawberry<span class="fav">❤</span></div><button class="price-btn" data-name="Apollo Choco Strawberry (Milk-Based)" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Apollo Choco Strawberry (Milk-Based)" data-size="Large" data-price="115">115</button></div>
+        <div class="menu-item"><div class="name">Dark Chocolate<span class="fav">❤</span></div><button class="price-btn" data-name="Dark Chocolate (Milk-Based)" data-size="Medium" data-price="105">105</button><button class="price-btn" data-name="Dark Chocolate (Milk-Based)" data-size="Large" data-price="120">120</button></div>
+        <div class="menu-item"><div class="name">Matcha Latte</div><button class="price-btn" data-name="Matcha Latte" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Matcha Latte" data-size="Large" data-price="115">115</button></div>
+        <div class="menu-item"><div class="name">Milky Nutella</div><button class="price-btn" data-name="Milky Nutella" data-size="Medium" data-price="110">110</button><button class="price-btn" data-name="Milky Nutella" data-size="Large" data-price="125">125</button></div>
+        <div class="menu-item"><div class="name">Milky Oreo<span class="fav">❤</span></div><button class="price-btn" data-name="Milky Oreo" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Milky Oreo" data-size="Large" data-price="115">115</button></div>
+        <div class="menu-item"><div class="name">Salted Caramel</div><button class="price-btn" data-name="Salted Caramel (Milk-Based)" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Salted Caramel (Milk-Based)" data-size="Large" data-price="115">115</button></div>
+        <div class="menu-item"><div class="name">Strawberry Matcha</div><button class="price-btn" data-name="Strawberry Matcha" data-size="Medium" data-price="105">105</button><button class="price-btn" data-name="Strawberry Matcha" data-size="Large" data-price="120">120</button></div>
+        <div class="menu-item"><div class="name">Strawberry Milk<span class="fav">❤</span></div><button class="price-btn" data-name="Strawberry Milk" data-size="Medium" data-price="95">95</button><button class="price-btn" data-name="Strawberry Milk" data-size="Large" data-price="110">110</button></div>
+        <div class="menu-item"><div class="name">Swift Drip Chocolate<span class="fav">❤</span></div><button class="price-btn" data-name="Swift Drip Chocolate" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Swift Drip Chocolate" data-size="Large" data-price="115">115</button></div>
+      </div>
+    </details>
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">LEMONADE</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
+        <div class="menu-item"><div class="name">Blueberry</div><button class="price-btn" data-name="Blueberry Lemonade" data-size="Medium" data-price="60">60</button><button class="price-btn" data-name="Blueberry Lemonade" data-size="Large" data-price="70">70</button></div>
+        <div class="menu-item"><div class="name">Green Apple<span class="fav">❤</span></div><button class="price-btn" data-name="Green Apple Lemonade" data-size="Medium" data-price="60">60</button><button class="price-btn" data-name="Green Apple Lemonade" data-size="Large" data-price="70">70</button></div>
+        <div class="menu-item"><div class="name">Lychee<span class="fav">❤</span></div><button class="price-btn" data-name="Lychee Lemonade" data-size="Medium" data-price="60">60</button><button class="price-btn" data-name="Lychee Lemonade" data-size="Large" data-price="70">70</button></div>
+        <div class="menu-item"><div class="name">Passionfruit</div><button class="price-btn" data-name="Passionfruit Lemonade" data-size="Medium" data-price="60">60</button><button class="price-btn" data-name="Passionfruit Lemonade" data-size="Large" data-price="70">70</button></div>
+        <div class="menu-item"><div class="name">Strawberry</div><button class="price-btn" data-name="Strawberry Lemonade" data-size="Medium" data-price="60">60</button><button class="price-btn" data-name="Strawberry Lemonade" data-size="Large" data-price="70">70</button></div>
+        <div class="menu-item"><div class="name">Strawberry Lychee<span class="fav">❤</span></div><button class="price-btn" data-name="Strawberry Lychee Lemonade" data-size="Medium" data-price="60">60</button><button class="price-btn" data-name="Strawberry Lychee Lemonade" data-size="Large" data-price="70">70</button></div>
+        <div class="menu-item"><div class="name">Strawberry Passionfruit</div><button class="price-btn" data-name="Strawberry Passionfruit Lemonade" data-size="Medium" data-price="60">60</button><button class="price-btn" data-name="Strawberry Passionfruit Lemonade" data-size="Large" data-price="70">70</button></div>
+        <div class="mini-heading">Extras</div>
+        <div class="menu-item"><div class="name">Fruit Jelly</div><button class="price-btn" data-name="Fruit Jelly" data-size="Add-on" data-price="10">10</button><span></span></div>
+      </div>
+    </details>
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">EXTRAS</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="menu-item"><div class="name">Espresso Shot</div><button class="price-btn" data-name="Espresso Shot" data-size="Add-on" data-price="30">30</button><span></span></div>
+        <div class="menu-item"><div class="name">Syrup</div><button class="price-btn" data-name="Syrup" data-size="Add-on" data-price="20">20</button><span></span></div>
+        <div class="menu-item"><div class="name">Coffee Jelly</div><button class="price-btn" data-name="Coffee Jelly" data-size="Add-on" data-price="20">20</button><span></span></div>
+        <div class="menu-item"><div class="name">Seasalt Cream</div><button class="price-btn" data-name="Seasalt Cream" data-size="Add-on" data-price="30">30</button><span></span></div>
+      </div>
+    </details>
+  </details>
+
+  <details class="group" open>
+    <summary>
+      <span class="summary-left">
+        <span class="icon">🍟</span>
+        <span class="group-title">Snacks</span>
+      </span>
+      <span class="chev">⌄</span>
+    </summary>
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">KOREAN CORNDOG</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="menu-item"><div class="name">Full Mozzarella<span class="fav">❤</span></div><button class="price-btn" data-name="Full Mozzarella" data-size="Regular" data-price="95">95</button><span></span></div>
+        <div class="menu-item"><div class="name">Sausage &amp; Mozzarella</div><button class="price-btn" data-name="Sausage & Mozzarella" data-size="Regular" data-price="85">85</button><span></span></div>
+        <div class="note">Choose 2 dip: mayo, ketchup, mustard, hot sauce</div>
+      </div>
+    </details>
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">GRILLED SANDWICH</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="menu-item"><div class="name">Spam &amp; Cheese<span class="fav">❤</span></div><button class="price-btn" data-name="Spam & Cheese" data-size="Regular" data-price="75">75</button><span></span></div>
+        <div class="menu-item"><div class="name">Tuna &amp; Cheese</div><button class="price-btn" data-name="Tuna & Cheese" data-size="Regular" data-price="65">65</button><span></span></div>
+        <div class="menu-item"><div class="name">Nutella</div><button class="price-btn" data-name="Nutella Sandwich" data-size="Regular" data-price="50">50</button><span></span></div>
+      </div>
+    </details>
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">FRIES</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="menu-item"><div class="name">Regular Fries</div><button class="price-btn" data-name="Regular Fries" data-size="Regular" data-price="50">50</button><span></span></div>
+        <div class="note">Flavor: BBQ, cheese, sour cream, plain</div>
+        <div class="menu-item"><div class="name">Fries Overload<span class="fav">❤</span></div><button class="price-btn" data-name="Fries Overload" data-size="Regular" data-price="100">100</button><span></span></div>
+        <div class="note">made with fries, ground beef, cheese sauce &amp; grated cheese</div>
+        <div class="menu-item"><div class="name">Savory Fries</div><button class="price-btn" data-name="Savory Fries" data-size="Regular" data-price="110">110</button><span></span></div>
+        <div class="note">made with fries, ground beef, cheese sauce &amp; BBQ sauce</div>
+      </div>
+    </details>
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">NACHOS</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="menu-item"><div class="name">Cheesy Nachos<span class="fav">❤</span></div><button class="price-btn" data-name="Cheesy Nachos" data-size="Regular" data-price="100">100</button><span></span></div>
+        <div class="note">made with nacho chips, ground beef, cheese sauce, garlic sauce &amp; grated cheese</div>
+      </div>
+    </details>
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">CHICKEN POPPERS</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="menu-item"><div class="name">Chicken Poppers<span class="fav">❤</span></div><button class="price-btn" data-name="Chicken Poppers" data-size="Regular" data-price="120">120</button><span></span></div>
+        <div class="note">Choose your dip: garlic mayo or cheese dip</div>
+      </div>
+    </details>
+
+    <details class="subgroup">
+      <summary><span class="subgroup-title">PASTA</span><span class="chev">⌄</span></summary>
+      <div class="subcontent">
+        <div class="menu-item"><div class="name">Creamy Carbonara<span class="fav">❤</span></div><button class="price-btn" data-name="Creamy Carbonara" data-size="Regular" data-price="120">120</button><span></span></div>
+        <div class="menu-item"><div class="name">Tuna Pesto<span class="fav">❤</span></div><button class="price-btn" data-name="Tuna Pesto" data-size="Regular" data-price="120">120</button><span></span></div>
+      </div>
+    </details>
+  </details>
+</div>
+
+<div class="cart-panel">
+  <div class="cart-head">
+    <div class="cart-title">Your Cart</div>
+    <button class="clear-btn" id="clearCartBtn" type="button">Clear</button>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">No items yet. Tap any price to add to cart.</div>
+  </div>
+
+  <div class="cart-summary">
+    <input class="customer-input" id="customerName" type="text" placeholder="Customer name (optional)">
+    <div class="totals">
+      <span>Total</span>
+      <span id="cartTotal">₱0</span>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" type="button" disabled>Checkout in Messenger</button>
+    <div class="hint">Checkout opens your Facebook Page Messenger with the order summary and total ready to send.</div>
+  </div>
+</div>
+
+<a href="https://m.me/swiftdrip.espresso" target="_blank" class="messenger-btn" aria-label="Open Messenger">
   <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Messenger">
 </a>
+
+<script>
+  const cart = [];
+  const pageMessengerUrl = 'https://m.me/swiftdrip.espresso';
+
+  const cartItemsEl = document.getElementById('cartItems');
+  const cartTotalEl = document.getElementById('cartTotal');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const clearCartBtn = document.getElementById('clearCartBtn');
+  const customerNameEl = document.getElementById('customerName');
+
+  document.querySelectorAll('.price-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      addToCart({
+        name: btn.dataset.name,
+        size: btn.dataset.size,
+        price: Number(btn.dataset.price)
+      });
+    });
+  });
+
+  clearCartBtn.addEventListener('click', () => {
+    cart.length = 0;
+    renderCart();
+  });
+
+  checkoutBtn.addEventListener('click', async () => {
+    if (!cart.length) return;
+
+    const message = buildMessengerMessage();
+
+    try {
+      await navigator.clipboard.writeText(message);
+      alert('Order details copied. Messenger will open next. Just paste the order into the chat and send it.');
+    } catch (error) {
+      console.log('Clipboard copy failed:', error);
+      alert('Messenger will open now. If the order is not copied automatically, you can copy it manually from the code.');
+    }
+
+    // Facebook Page Messenger does not reliably support arbitrary prefilled customer text from a normal public web page.
+    // So the safest flow is: generate order summary, copy it to clipboard, then open the Page Messenger.
+    window.open(pageMessengerUrl, '_blank');
+  });
+
+  function addToCart(item) {
+    const existingItem = cart.find(product => product.name === item.name && product.size === item.size);
+
+    if (existingItem) {
+      existingItem.qty += 1;
+    } else {
+      cart.push({ ...item, qty: 1 });
+    }
+
+    renderCart();
+  }
+
+  function updateQty(index, change) {
+    cart[index].qty += change;
+    if (cart[index].qty <= 0) {
+      cart.splice(index, 1);
+    }
+    renderCart();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    renderCart();
+  }
+
+  function getTotal() {
+    return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  }
+
+  function buildMessengerMessage() {
+    const customerName = customerNameEl.value.trim();
+    const lines = [];
+
+    lines.push('Hello Swift Drip!');
+    lines.push('I would like to place an order:');
+    lines.push('');
+
+    cart.forEach((item, index) => {
+      const lineTotal = item.price * item.qty;
+      lines.push(`${index + 1}. ${item.name} - ${item.size} x${item.qty} = ₱${lineTotal}`);
+    });
+
+    lines.push('');
+    lines.push(`TOTAL: ₱${getTotal()}`);
+
+    if (customerName) {
+      lines.push(`Customer Name: ${customerName}`);
+    }
+
+    lines.push('');
+    lines.push('Please confirm my order. Thank you!');
+
+    return lines.join('\n');
+  }
+
+  function renderCart() {
+    if (!cart.length) {
+      cartItemsEl.innerHTML = '<div class="cart-empty">No items yet. Tap any price to add to cart.</div>';
+      cartTotalEl.textContent = '₱0';
+      checkoutBtn.disabled = true;
+      return;
+    }
+
+    cartItemsEl.innerHTML = cart.map((item, index) => {
+      const lineTotal = item.price * item.qty;
+      return `
+        <div class="cart-item">
+          <div>
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-meta">${item.size} • ₱${item.price} each • Line total: ₱${lineTotal}</div>
+            <div class="cart-item-actions">
+              <button class="qty-btn" type="button" onclick="updateQty(${index}, -1)">-</button>
+              <span class="qty-label">${item.qty}</span>
+              <button class="qty-btn" type="button" onclick="updateQty(${index}, 1)">+</button>
+              <button class="remove-btn" type="button" onclick="removeItem(${index})">Remove</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    cartTotalEl.textContent = `₱${getTotal()}`;
+    checkoutBtn.disabled = false;
+  }
+
+  window.updateQty = updateQty;
+  window.removeItem = removeItem;
+</script>
 </body>
 </html>
