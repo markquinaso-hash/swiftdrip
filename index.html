@@ -6,212 +6,235 @@
   <title>Swift Drip Menu with Cart</title>
   <style>
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: #efefef;
+      background: linear-gradient(135deg, #141414 0%, #2a241f 45%, #111 100%);
       color: #111;
-      padding-bottom: 220px;
+      padding-bottom: 260px;
+    }
+
+    .app-shell {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #f7f3ec;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
     }
 
     .menu-wrap {
-      max-width: 390px;
-      margin: 0 auto;
       min-height: 100vh;
-      background: #f3f3f3;
-      border-left: 1px solid rgba(0,0,0,0.06);
-      border-right: 1px solid rgba(0,0,0,0.06);
-      padding: 12px 12px 24px;
+      padding: 0 14px 30px;
+      background: linear-gradient(180deg, #241b15 0 190px, #f7f3ec 190px 100%);
     }
 
-    .logo {
-      display: flex;
-      justify-content: center;
-      margin: 10px 0 6px;
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin: 0 -14px 14px;
+      padding: 12px 14px 10px;
+      background: rgba(36, 27, 21, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .logo img {
-      width: 200px;
-      height: auto;
-      object-fit: contain;
-    }
+    .logo { display: flex; justify-content: center; align-items: center; margin: 0 0 10px; }
+    .logo img { width: 150px; height: auto; object-fit: contain; filter: drop-shadow(0 8px 18px rgba(0,0,0,0.28)); }
 
-    .title {
-      text-align: center;
-      font-size: 24px;
+    .top-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .top-nav a {
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      padding: 9px 8px;
+      font-size: 12px;
       font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: lowercase;
-      margin: 8px 0 14px;
+      text-align: center;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .top-nav a:hover, .top-nav a:focus {
+      background: #fff;
+      color: #211914;
+      transform: translateY(-1px);
     }
 
-    details.group,
-    details.subgroup {
-      background: #e9e9e9;
-      border-radius: 14px;
-      overflow: hidden;
+    .hero-card {
+      background: linear-gradient(135deg, #fff 0%, #fff8ef 100%);
+      border-radius: 28px;
+      padding: 18px;
+      margin: 12px 0 14px;
+      box-shadow: 0 14px 32px rgba(50, 34, 20, 0.14);
+      border: 1px solid rgba(75,48,25,.08);
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f1e3d1;
+      color: #5a3219;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .5px;
+      text-transform: uppercase;
       margin-bottom: 10px;
-      border: 1px solid rgba(0,0,0,0.03);
     }
+    .title {
+      text-align: left;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.6px;
+      text-transform: none;
+      margin: 0 0 4px;
+      color: #17110d;
+    }
+    .subtitle { margin: 0; font-size: 13px; line-height: 1.45; color: #6d5a4a; font-weight: 600; }
 
-    details.group summary,
-    details.subgroup summary {
+    details.group, details.subgroup {
+      background: rgba(255,255,255,0.86);
+      border-radius: 22px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 1px solid rgba(80,55,35,0.08);
+      box-shadow: 0 10px 26px rgba(50,34,20,.08);
+    }
+    details.subgroup {
+      border-radius: 18px;
+      box-shadow: none;
+      background: #fbf7f0;
+      margin-bottom: 10px;
+    }
+    details.group summary, details.subgroup summary {
       list-style: none;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       cursor: pointer;
-      padding: 14px 14px;
-      font-weight: 700;
-    }
-
-    details.group summary::-webkit-details-marker,
-    details.subgroup summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .summary-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .icon {
-      width: 28px;
-      height: 28px;
-      flex: 0 0 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      background: #fff;
-    }
-
-    .group-title {
-      font-size: 15px;
-      letter-spacing: 0.4px;
-    }
-
-    .chev {
-      font-size: 18px;
-      color: #333;
-      transition: transform 0.2s ease;
-    }
-
-    details[open] > summary .chev {
-      transform: rotate(180deg);
-    }
-
-    .subgroup-title {
-      font-size: 14px;
-      letter-spacing: 2px;
+      padding: 15px;
       font-weight: 800;
     }
+    details.group summary::-webkit-details-marker, details.subgroup summary::-webkit-details-marker { display: none; }
 
-    .subcontent {
-      background: #f4f4f4;
-      padding: 0 12px 10px;
+    .summary-left { display: flex; align-items: center; gap: 11px; min-width: 0; }
+    .icon {
+      width: 34px; height: 34px; flex: 0 0 34px; border-radius: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; background: #f1e3d1; box-shadow: inset 0 0 0 1px rgba(80,55,35,.08);
     }
+    .group-title { font-size: 16px; letter-spacing: .2px; }
+    .chev { font-size: 18px; color: #6d5a4a; transition: transform .2s ease; }
+    details[open] > summary .chev { transform: rotate(180deg); }
+    .subgroup-title { font-size: 13px; letter-spacing: 1.8px; font-weight: 900; color: #3a2a20; }
 
+    .subcontent { background: #fffaf3; padding: 0 13px 12px; border-top: 1px solid rgba(80,55,35,.06); }
     .menu-item {
       display: grid;
       grid-template-columns: 1fr auto auto;
       gap: 8px;
       align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(80,55,35,.07);
       font-size: 13px;
     }
-
     .menu-item:last-child { border-bottom: none; }
-
-    .name {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      min-width: 0;
-      line-height: 1.3;
-    }
-
-    .fav {
-      color: #ff6f6f;
-      font-size: 12px;
-      line-height: 1;
-    }
-
+    .name { display: flex; align-items: center; gap: 4px; min-width: 0; line-height: 1.3; font-weight: 700; }
+    .fav { color: #e84d4d; font-size: 12px; line-height: 1; }
     .price-btn {
       min-width: 58px;
-      padding: 7px 8px;
+      padding: 8px 9px;
       border: none;
       border-radius: 999px;
-      background: #fff;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+      background: #211914;
+      color: #fff;
+      box-shadow: 0 7px 14px rgba(33,25,20,.14);
       font-size: 12px;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 900;
       transition: .2s ease;
     }
-
-    .price-btn:hover {
-      background: #111;
-      color: #fff;
-    }
-
+    .price-btn:hover { transform: translateY(-1px); background: #8a552d; }
     .price-head {
       display: grid;
       grid-template-columns: 1fr auto auto;
       gap: 8px;
       font-size: 10px;
-      color: #666;
-      padding: 8px 0 4px;
+      color: #8c7a69;
+      padding: 10px 0 4px;
       text-transform: uppercase;
+      font-weight: 900;
     }
-
     .price-head span:first-child { visibility: hidden; }
+    .note { font-size: 11px; color: #8c5a37; line-height: 1.4; padding: 3px 0 9px 0; font-weight: 700; }
+    .mini-heading { font-size: 11px; font-weight: 900; letter-spacing: 1.6px; margin: 12px 0 4px; text-transform: uppercase; color: #5a3219; }
 
-    .note {
-      font-size: 10px;
-      color: #ff7a7a;
-      line-height: 1.4;
-      padding: 3px 0 8px 0;
+    .info-section {
+      background: #fffaf3;
+      border-radius: 26px;
+      padding: 18px;
+      margin: 16px 0 12px;
+      border: 1px solid rgba(80,55,35,.08);
+      box-shadow: 0 12px 28px rgba(50,34,20,.08);
+      scroll-margin-top: 135px;
     }
-
-    .mini-heading {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.6px;
-      margin: 10px 0 4px;
-      text-transform: uppercase;
-    }
-
-    .messenger-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: #0084FF;
-      border-radius: 50%;
+    .info-section h2 { margin: 0 0 10px; font-size: 24px; line-height: 1.1; letter-spacing: -0.3px; }
+    .info-section p { margin: 0 0 10px; font-size: 13px; line-height: 1.6; color: #493b31; font-weight: 600; }
+    .section-image {
+      width: 100%;
+      min-height: 180px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #d8c2a7, #f2e5d5);
+      margin: 13px 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      color: #6d5a4a;
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+      border: 1px dashed rgba(80,55,35,.22);
+    }
+    .section-image img { width: 100%; height: 100%; min-height: 180px; object-fit: cover; display: block; }
+    .section-actions { display: grid; gap: 9px; margin-top: 13px; }
+    .action-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 16px;
+      padding: 13px 12px;
+      background: #211914;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: 0 10px 20px rgba(33,25,20,.16);
+    }
+    .action-btn.secondary { background: #fff; color: #211914; box-shadow: inset 0 0 0 1px rgba(80,55,35,.12); }
+
+    .messenger-btn {
+      position: fixed;
+      bottom: 24px;
+      right: calc(50% - 196px);
+      width: 56px;
+      height: 56px;
+      background: #0084FF;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.26);
       cursor: pointer;
       z-index: 999;
-      transition: transform 0.2s ease;
+      transition: transform .2s ease;
     }
-
-    .messenger-btn:hover {
-      transform: scale(1.1);
-    }
-
-    .messenger-btn img {
-      width: 30px;
-      height: 30px;
-    }
+    .messenger-btn:hover { transform: scale(1.06); }
+    .messenger-btn img { width: 28px; height: 28px; }
 
     .cart-panel {
       position: fixed;
@@ -219,252 +242,80 @@
       transform: translateX(-50%);
       bottom: 0;
       width: 100%;
-      max-width: 390px;
-      background: #ffffff;
-      border-top-left-radius: 18px;
-      border-top-right-radius: 18px;
-      box-shadow: 0 -8px 24px rgba(0,0,0,0.12);
-      padding: 12px;
+      max-width: 430px;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(14px);
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+      box-shadow: 0 -14px 34px rgba(0,0,0,.20);
+      padding: 14px;
       z-index: 998;
-      border: 1px solid rgba(0,0,0,0.06);
+      border: 1px solid rgba(80,55,35,.10);
     }
-
-    .cart-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .cart-title {
-      font-size: 16px;
-      font-weight: 800;
-    }
-
-    .clear-btn {
-      border: none;
-      background: #f1f1f1;
+    .cart-panel::before {
+      content: "";
+      display: block;
+      width: 48px;
+      height: 5px;
+      background: #ddd1c6;
       border-radius: 999px;
-      padding: 7px 12px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 700;
+      margin: 0 auto 10px;
     }
-
-    .cart-items {
-      max-height: 160px;
-      overflow: auto;
-      margin-bottom: 10px;
-    }
-
-    .cart-empty {
-      font-size: 12px;
-      color: #666;
-      padding: 6px 0;
-    }
-
-    .cart-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-
+    .cart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .cart-title { font-size: 17px; font-weight: 900; }
+    .clear-btn { border: none; background: #f1e7db; border-radius: 999px; padding: 8px 12px; cursor: pointer; font-size: 12px; font-weight: 900; color: #4b3020; }
+    .cart-items { max-height: 145px; overflow: auto; margin-bottom: 10px; }
+    .cart-empty { font-size: 12px; color: #7f6b59; padding: 7px 0; font-weight: 700; }
+    .cart-item { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 8px 0; border-bottom: 1px solid rgba(80,55,35,.08); }
     .cart-item:last-child { border-bottom: none; }
-
-    .cart-item-name {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 3px;
-    }
-
-    .cart-item-meta {
-      font-size: 11px;
-      color: #666;
-    }
-
-    .cart-item-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 5px;
-    }
-
-    .qty-btn, .remove-btn {
-      border: none;
-      background: #efefef;
-      border-radius: 8px;
-      padding: 4px 8px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    .qty-label {
-      min-width: 18px;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .cart-summary {
-      display: grid;
-      gap: 8px;
-    }
-
-    .customer-input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid rgba(0,0,0,0.12);
-      border-radius: 12px;
-      font-size: 13px;
-    }
-
-    .totals {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 800;
-      font-size: 15px;
-    }
-
+    .cart-item-name { font-size: 13px; font-weight: 900; margin-bottom: 3px; }
+    .cart-item-meta { font-size: 11px; color: #6d5a4a; font-weight: 700; }
+    .cart-item-actions { display: flex; align-items: center; gap: 6px; margin-top: 7px; }
+    .qty-btn, .remove-btn { border: none; background: #f1e7db; border-radius: 10px; padding: 5px 9px; cursor: pointer; font-size: 12px; font-weight: 900; }
+    .qty-label { min-width: 18px; text-align: center; font-size: 12px; font-weight: 900; }
+    .cart-summary { display: grid; gap: 9px; }
+    .customer-input { width: 100%; padding: 12px 13px; border: 1px solid rgba(80,55,35,.14); border-radius: 16px; font-size: 13px; background: #fffaf3; font-weight: 700; }
+    .totals { display: flex; justify-content: space-between; font-weight: 900; font-size: 16px; }
     .checkout-btn {
       width: 100%;
       border: none;
-      border-radius: 14px;
-      background: #0084FF;
+      border-radius: 18px;
+      background: #211914;
       color: white;
       font-size: 14px;
-      font-weight: 800;
-      padding: 12px;
+      font-weight: 900;
+      padding: 14px;
       cursor: pointer;
+      box-shadow: 0 12px 22px rgba(33,25,20,.18);
     }
+    .checkout-btn:disabled { background: #cabfb5; cursor: not-allowed; box-shadow: none; }
+    .hint { font-size: 11px; color: #7f6b59; line-height: 1.4; font-weight: 600; }
 
-    .checkout-btn:disabled {
-      background: #a9cfff;
-      cursor: not-allowed;
+    @media (max-width: 460px) {
+      .messenger-btn { right: 16px; bottom: 24px; }
     }
-
-    .hint {
-      font-size: 11px;
-      color: #666;
-      line-height: 1.4;
-    }
-
-
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      background: rgba(243,243,243,0.96);
-      padding: 10px 0 8px;
-      margin-bottom: 8px;
-      backdrop-filter: blur(6px);
-    }
-
-    .top-nav a {
-      text-decoration: none;
-      color: #111;
-      background: #fff;
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      font-weight: 800;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
-    }
-
-    .top-nav a:hover {
-      background: #111;
-      color: #fff;
-    }
-
-    .info-section {
-      background: #e9e9e9;
-      border-radius: 18px;
-      padding: 16px 14px;
-      margin: 14px 0 12px;
-      border: 1px solid rgba(0,0,0,0.04);
-    }
-
-    .info-section h2 {
-      margin: 0 0 10px;
-      font-size: 20px;
-      line-height: 1.2;
-      letter-spacing: 0.3px;
-    }
-
-    .info-section p {
-      margin: 0 0 10px;
-      font-size: 13px;
-      line-height: 1.55;
-      color: #222;
-    }
-
-    .section-image {
-      width: 100%;
-      min-height: 170px;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #d9d9d9;
-      margin: 12px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #666;
-      font-size: 12px;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .section-image img {
-      width: 100%;
-      height: 100%;
-      min-height: 170px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .section-actions {
-      display: grid;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .action-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 14px;
-      padding: 11px 12px;
-      background: #111;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .action-btn.secondary {
-      background: #fff;
-      color: #111;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
-    }
-  </style>
+</style>
 </head>
 <body>
+<div class="app-shell">
 <div class="menu-wrap" id="home">
-  <div class="logo">
-    <img src="images/logo.png" alt="logo">
-  </div>
+  <header class="app-header">
+    <div class="logo">
+      <img src="images/logo.png" alt="Swift Drip logo">
+    </div>
 
-  <nav class="top-nav" aria-label="Main menu">
-    <a href="#home">Home</a>
-    <a href="#about-us">About Us</a>
-    <a href="#services">Services</a>
-  </nav>
+    <nav class="top-nav" aria-label="Main menu">
+      <a href="#home">Menu</a>
+      <a href="#about-us">About</a>
+      <a href="#services">Services</a>
+    </nav>
+  </header>
 
-  <div class="title">online menu</div>
+  <section class="hero-card">
+    <div class="eyebrow">☕ Online Menu</div>
+    <div class="title">Order your Swift Drip favorites</div>
+    <p class="subtitle">Tap a price to add items to your cart, then checkout through Messenger.</p>
+  </section>
 
   <details class="group" open>
     <summary>
@@ -634,7 +485,7 @@
     <h2>About Us</h2>
     <p>Swift Drip started on September 29, 2023, on Riverside streets with a car, table, and manual espresso setup. As we grew, we upgraded equipment, expanded our menu, and added snacks and pasta. By March 2024, we became Riverside’s first beverage spot.</p>
     <div class="section-image">
-      <img src="images/about-us.jpg" alt="Swift Drip coffee setup">
+      <img src="images/about-us.jpg" alt="Swift Drip coffee setup" onerror="this.style.display='none'; this.parentElement.textContent='Add About Us image here';">
     </div>
   </section>
 
@@ -643,7 +494,7 @@
     <p>Looking for a coffee cart? Book us for your next event—whether it’s a birthday, anniversary, wedding, or any special occasion! Our coffee cart packages start at just ₱5,000.</p>
     <p>Enjoy 12 drink options with 12oz servings of our signature iced coffee, milk-based, and lemonade drinks—or 8oz hot coffee and milk-based drinks made with Sagada Arabica beans and premium syrups.</p>
     <div class="section-image">
-      <img src="images/services.jpg" alt="Swift Drip coffee cart service">
+      <img src="images/services.jpg" alt="Swift Drip coffee cart service" onerror="this.style.display='none'; this.parentElement.textContent='Add Services image here';">
     </div>
     <div class="section-actions">
       <a class="action-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSepXHYXL2G8agHfSygqWhW3r_VX18t5kR0dl6wP7dP7HTdgew/viewform" target="_blank" rel="noopener">Book Your Event</a>
@@ -677,6 +528,8 @@
 <a href="https://m.me/swiftdrip.espresso" target="_blank" class="messenger-btn" aria-label="Open Messenger">
   <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Messenger">
 </a>
+
+</div>
 
 <script>
   const cart = [];
