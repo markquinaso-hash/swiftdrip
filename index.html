@@ -349,15 +349,122 @@
       color: #666;
       line-height: 1.4;
     }
+
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      background: rgba(243,243,243,0.96);
+      padding: 10px 0 8px;
+      margin-bottom: 8px;
+      backdrop-filter: blur(6px);
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #111;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+    }
+
+    .top-nav a:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    .info-section {
+      background: #e9e9e9;
+      border-radius: 18px;
+      padding: 16px 14px;
+      margin: 14px 0 12px;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .info-section h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: 0.3px;
+    }
+
+    .info-section p {
+      margin: 0 0 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #222;
+    }
+
+    .section-image {
+      width: 100%;
+      min-height: 170px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #d9d9d9;
+      margin: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .section-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 170px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .section-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .action-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 14px;
+      padding: 11px 12px;
+      background: #111;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .action-btn.secondary {
+      background: #fff;
+      color: #111;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+    }
   </style>
 </head>
 <body>
-<div class="menu-wrap">
+<div class="menu-wrap" id="home">
   <div class="logo">
     <img src="images/logo.png" alt="logo">
   </div>
 
-  <div class="title">menu</div>
+  <nav class="top-nav" aria-label="Main menu">
+    <a href="#home">Home</a>
+    <a href="#about-us">About Us</a>
+    <a href="#services">Services</a>
+  </nav>
+
+  <div class="title">online menu</div>
 
   <details class="group" open>
     <summary>
@@ -521,6 +628,29 @@
       </div>
     </details>
   </details>
+
+
+  <section class="info-section" id="about-us">
+    <h2>About Us</h2>
+    <p>Swift Drip started on September 29, 2023, on Riverside streets with a car, table, and manual espresso setup. As we grew, we upgraded equipment, expanded our menu, and added snacks and pasta. By March 2024, we became Riverside’s first beverage spot.</p>
+    <div class="section-image">
+      <img src="images/about-us.jpg" alt="Swift Drip coffee setup">
+    </div>
+  </section>
+
+  <section class="info-section" id="services">
+    <h2>Services</h2>
+    <p>Looking for a coffee cart? Book us for your next event—whether it’s a birthday, anniversary, wedding, or any special occasion! Our coffee cart packages start at just ₱5,000.</p>
+    <p>Enjoy 12 drink options with 12oz servings of our signature iced coffee, milk-based, and lemonade drinks—or 8oz hot coffee and milk-based drinks made with Sagada Arabica beans and premium syrups.</p>
+    <div class="section-image">
+      <img src="images/services.jpg" alt="Swift Drip coffee cart service">
+    </div>
+    <div class="section-actions">
+      <a class="action-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSepXHYXL2G8agHfSygqWhW3r_VX18t5kR0dl6wP7dP7HTdgew/viewform" target="_blank" rel="noopener">Book Your Event</a>
+      <a class="action-btn secondary" href="mailto:swiftdripbusiness@gmail.com">Email Us</a>
+      <a class="action-btn secondary" href="https://m.me/swiftdrip.espresso" target="_blank" rel="noopener">Message Us</a>
+    </div>
+  </section>
 </div>
 
 <div class="cart-panel">
