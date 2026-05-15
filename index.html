@@ -12,7 +12,7 @@
       font-family: Arial, Helvetica, sans-serif;
       background: linear-gradient(135deg, #141414 0%, #2a241f 45%, #111 100%);
       color: #111;
-      padding-bottom: 260px;
+      padding-bottom: 92px;
     }
 
     .app-shell {
@@ -219,7 +219,7 @@
 
     .messenger-btn {
       position: fixed;
-      bottom: 24px;
+      bottom: 84px;
       right: calc(50% - 196px);
       width: 56px;
       height: 56px;
@@ -236,34 +236,51 @@
     .messenger-btn:hover { transform: scale(1.06); }
     .messenger-btn img { width: 28px; height: 28px; }
 
-    .cart-panel {
+    .view-order-btn {
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 0;
+      bottom: 18px;
+      width: calc(100% - 28px);
+      max-width: 402px;
+      border: none;
+      border-radius: 20px;
+      background: #211914;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 900;
+      padding: 15px;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(0,0,0,.26);
+      z-index: 997;
+    }
+    .cart-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.48);
+      z-index: 998;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 14px;
+    }
+    .cart-backdrop.open { display: flex; }
+    .cart-panel {
       width: 100%;
       max-width: 430px;
-      background: rgba(255,255,255,.96);
+      max-height: 88vh;
+      overflow: auto;
+      background: rgba(255,255,255,.98);
       backdrop-filter: blur(14px);
-      border-top-left-radius: 28px;
-      border-top-right-radius: 28px;
+      border-radius: 28px;
       box-shadow: 0 -14px 34px rgba(0,0,0,.20);
       padding: 14px;
-      z-index: 998;
       border: 1px solid rgba(80,55,35,.10);
     }
-    .cart-panel::before {
-      content: "";
-      display: block;
-      width: 48px;
-      height: 5px;
-      background: #ddd1c6;
-      border-radius: 999px;
-      margin: 0 auto 10px;
-    }
-    .cart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .cart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; }
+    .cart-head-actions { display: flex; gap: 7px; align-items: center; }
     .cart-title { font-size: 17px; font-weight: 900; }
-    .clear-btn { border: none; background: #f1e7db; border-radius: 999px; padding: 8px 12px; cursor: pointer; font-size: 12px; font-weight: 900; color: #4b3020; }
+    .clear-btn, .close-cart-btn { border: none; background: #f1e7db; border-radius: 999px; padding: 8px 12px; cursor: pointer; font-size: 12px; font-weight: 900; color: #4b3020; }
     .cart-items { max-height: 145px; overflow: auto; margin-bottom: 10px; }
     .cart-empty { font-size: 12px; color: #7f6b59; padding: 7px 0; font-weight: 700; }
     .cart-item { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 8px 0; border-bottom: 1px solid rgba(80,55,35,.08); }
@@ -292,7 +309,7 @@
     .hint { font-size: 11px; color: #7f6b59; line-height: 1.4; font-weight: 600; }
 
     @media (max-width: 460px) {
-      .messenger-btn { right: 16px; bottom: 24px; }
+      .messenger-btn { right: 16px; bottom: 84px; }
     }
 </style>
 </head>
@@ -412,6 +429,7 @@
         <div class="menu-item"><div class="name">Syrup</div><button class="price-btn" data-name="Syrup" data-size="Add-on" data-price="20">20</button><span></span></div>
         <div class="menu-item"><div class="name">Coffee Jelly</div><button class="price-btn" data-name="Coffee Jelly" data-size="Add-on" data-price="20">20</button><span></span></div>
         <div class="menu-item"><div class="name">Seasalt Cream</div><button class="price-btn" data-name="Seasalt Cream" data-size="Add-on" data-price="30">30</button><span></span></div>
+        <div class="menu-item"><div class="name">Oat Milk</div><button class="price-btn" data-name="Oat Milk" data-size="Medium Add-on" data-price="35">35</button><button class="price-btn" data-name="Oat Milk" data-size="Large Add-on" data-price="40">40</button></div>
       </div>
     </details>
   </details>
@@ -428,8 +446,8 @@
     <details class="subgroup">
       <summary><span class="subgroup-title">KOREAN CORNDOG</span><span class="chev">⌄</span></summary>
       <div class="subcontent">
-        <div class="menu-item"><div class="name">Full Mozzarella<span class="fav">❤</span></div><button class="price-btn" data-name="Full Mozzarella" data-size="Regular" data-price="95">95</button><span></span></div>
-        <div class="menu-item"><div class="name">Sausage &amp; Mozzarella</div><button class="price-btn" data-name="Sausage & Mozzarella" data-size="Regular" data-price="85">85</button><span></span></div>
+        <div class="menu-item"><div class="name">Full Mozzarella<span class="fav">❤</span></div><button class="price-btn" data-name="Full Mozzarella" data-size="Regular" data-price="95" data-choice-label="Dips" data-choice-type="multi" data-choice-max="2" data-choice-options="Mayo, Ketchup, Mustard, Hot Sauce">Choose Dips • 95</button><span></span></div>
+        <div class="menu-item"><div class="name">Sausage &amp; Mozzarella</div><button class="price-btn" data-name="Sausage & Mozzarella" data-size="Regular" data-price="85" data-choice-label="Dips" data-choice-type="multi" data-choice-max="2" data-choice-options="Mayo, Ketchup, Mustard, Hot Sauce">Choose Dips • 85</button><span></span></div>
         <div class="note">Choose 2 dip: mayo, ketchup, mustard, hot sauce</div>
       </div>
     </details>
@@ -446,7 +464,7 @@
     <details class="subgroup">
       <summary><span class="subgroup-title">FRIES</span><span class="chev">⌄</span></summary>
       <div class="subcontent">
-        <div class="menu-item"><div class="name">Regular Fries</div><button class="price-btn" data-name="Regular Fries" data-size="Regular" data-price="50">50</button><span></span></div>
+        <div class="menu-item"><div class="name">Regular Fries</div><button class="price-btn" data-name="Regular Fries" data-size="Regular" data-price="50" data-choice-label="Flavor" data-choice-type="single" data-choice-options="BBQ, Cheese, Sour Cream, Plain">Choose Flavor • 50</button><span></span></div>
         <div class="note">Flavor: BBQ, cheese, sour cream, plain</div>
         <div class="menu-item"><div class="name">Fries Overload<span class="fav">❤</span></div><button class="price-btn" data-name="Fries Overload" data-size="Regular" data-price="100">100</button><span></span></div>
         <div class="note">made with fries, ground beef, cheese sauce &amp; grated cheese</div>
@@ -466,7 +484,7 @@
     <details class="subgroup">
       <summary><span class="subgroup-title">CHICKEN POPPERS</span><span class="chev">⌄</span></summary>
       <div class="subcontent">
-        <div class="menu-item"><div class="name">Chicken Poppers<span class="fav">❤</span></div><button class="price-btn" data-name="Chicken Poppers" data-size="Regular" data-price="120">120</button><span></span></div>
+        <div class="menu-item"><div class="name">Chicken Poppers<span class="fav">❤</span></div><button class="price-btn" data-name="Chicken Poppers" data-size="Regular" data-price="120" data-choice-label="Dip" data-choice-type="single" data-choice-options="Garlic Mayo, Cheese Dip">Choose Dip • 120</button><span></span></div>
         <div class="note">Choose your dip: garlic mayo or cheese dip</div>
       </div>
     </details>
@@ -504,26 +522,33 @@
   </section>
 </div>
 
-<div class="cart-panel">
-  <div class="cart-head">
-    <div class="cart-title">Your Cart</div>
-    <button class="clear-btn" id="clearCartBtn" type="button">Clear</button>
-  </div>
-
-  <div class="cart-items" id="cartItems">
-    <div class="cart-empty">No items yet. Tap any price to add to cart.</div>
-  </div>
-
-  <div class="cart-summary">
-    <input class="customer-input" id="customerName" type="text" placeholder="Customer name (optional)">
-    <div class="totals">
-      <span>Total</span>
-      <span id="cartTotal">₱0</span>
+<div class="cart-backdrop" id="cartBackdrop" aria-hidden="true">
+  <div class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="cart-head">
+      <div class="cart-title" id="cartTitle">Your Order</div>
+      <div class="cart-head-actions">
+        <button class="clear-btn" id="clearCartBtn" type="button">Clear</button>
+        <button class="close-cart-btn" id="closeCartBtn" type="button">Close</button>
+      </div>
     </div>
-    <button class="checkout-btn" id="checkoutBtn" type="button" disabled>Checkout in Messenger</button>
-    <div class="hint">Checkout opens your Facebook Page Messenger with the order summary and total ready to send.</div>
+
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">No items yet. Tap any price to add to cart.</div>
+    </div>
+
+    <div class="cart-summary">
+      <input class="customer-input" id="customerName" type="text" placeholder="Customer name (optional)">
+      <div class="totals">
+        <span>Total</span>
+        <span id="cartTotal">₱0</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" type="button" disabled>Checkout in Messenger</button>
+      <div class="hint">Checkout opens your Facebook Page Messenger with the order summary and total ready to send.</div>
+    </div>
   </div>
 </div>
+
+<button class="view-order-btn" id="viewOrderBtn" type="button">View Order • ₱0</button>
 
 <a href="https://m.me/swiftdrip.espresso" target="_blank" class="messenger-btn" aria-label="Open Messenger">
   <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Messenger">
@@ -540,13 +565,27 @@
   const checkoutBtn = document.getElementById('checkoutBtn');
   const clearCartBtn = document.getElementById('clearCartBtn');
   const customerNameEl = document.getElementById('customerName');
+  const viewOrderBtn = document.getElementById('viewOrderBtn');
+  const cartBackdrop = document.getElementById('cartBackdrop');
+  const closeCartBtn = document.getElementById('closeCartBtn');
+
+  viewOrderBtn.addEventListener('click', openCart);
+  closeCartBtn.addEventListener('click', closeCart);
+  cartBackdrop.addEventListener('click', event => {
+    if (event.target === cartBackdrop) closeCart();
+  });
 
   document.querySelectorAll('.price-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      const choice = getItemChoice(btn);
+      if (choice === null) return;
+
       addToCart({
         name: btn.dataset.name,
         size: btn.dataset.size,
-        price: Number(btn.dataset.price)
+        price: Number(btn.dataset.price),
+        category: getDrinkCategory(btn),
+        choice
       });
     });
   });
@@ -574,8 +613,73 @@
     window.open(pageMessengerUrl, '_blank');
   });
 
+  function openCart() {
+    cartBackdrop.classList.add('open');
+    cartBackdrop.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeCart() {
+    cartBackdrop.classList.remove('open');
+    cartBackdrop.setAttribute('aria-hidden', 'true');
+  }
+
+  function getDrinkCategory(btn) {
+    const subgroup = btn.closest('details.subgroup');
+    const title = subgroup ? subgroup.querySelector('.subgroup-title')?.textContent.trim().toUpperCase() : '';
+    if (title === 'ESPRESSO') return 'Espresso';
+    if (title === 'FRAPUCCINO' || title === 'FRAPPUCCINO') return 'Frappuccino';
+    if (title === 'MILK-BASED') return 'Non-coffee';
+    return '';
+  }
+
+  function getItemChoice(btn) {
+    if (!btn.dataset.choiceOptions) return '';
+
+    const options = btn.dataset.choiceOptions.split(',').map(option => option.trim()).filter(Boolean);
+    const label = btn.dataset.choiceLabel || 'Choice';
+    const type = btn.dataset.choiceType || 'single';
+    const max = Number(btn.dataset.choiceMax || 1);
+    const message = type === 'multi'
+      ? `${btn.dataset.name}
+Choose up to ${max} ${label.toLowerCase()} from:
+${options.join(', ')}
+
+Type your choice(s), separated by comma:`
+      : `${btn.dataset.name}
+Choose one ${label.toLowerCase()} from:
+${options.join(', ')}
+
+Type your choice:`;
+
+    const answer = prompt(message);
+    if (answer === null) return null;
+
+    const selected = answer.split(',').map(value => value.trim()).filter(Boolean);
+    if (!selected.length) {
+      alert(`Please choose ${type === 'multi' ? 'at least one option' : 'one option'} for ${btn.dataset.name}.`);
+      return null;
+    }
+    if (type === 'multi' && selected.length > max) {
+      alert(`Please choose only up to ${max} ${label.toLowerCase()}.`);
+      return null;
+    }
+
+    const invalid = selected.find(value => !options.some(option => option.toLowerCase() === value.toLowerCase()));
+    if (invalid) {
+      alert(`${invalid} is not available. Please choose from: ${options.join(', ')}.`);
+      return null;
+    }
+
+    const normalized = selected.map(value => options.find(option => option.toLowerCase() === value.toLowerCase()));
+    return `${label}: ${normalized.join(', ')}`;
+  }
+
+  function getCartKey(item) {
+    return [item.name, item.size, item.category || '', item.choice || ''].join('|');
+  }
+
   function addToCart(item) {
-    const existingItem = cart.find(product => product.name === item.name && product.size === item.size);
+    const existingItem = cart.find(product => getCartKey(product) === getCartKey(item));
 
     if (existingItem) {
       existingItem.qty += 1;
@@ -613,7 +717,8 @@
 
     cart.forEach((item, index) => {
       const lineTotal = item.price * item.qty;
-      lines.push(`${index + 1}. ${item.name} - ${item.size} x${item.qty} = ₱${lineTotal}`);
+      const details = [item.category, item.size, item.choice].filter(Boolean).join(' • ');
+      lines.push(`${index + 1}. ${item.name} - ${details} x${item.qty} = ₱${lineTotal}`);
     });
 
     lines.push('');
@@ -634,6 +739,7 @@
       cartItemsEl.innerHTML = '<div class="cart-empty">No items yet. Tap any price to add to cart.</div>';
       cartTotalEl.textContent = '₱0';
       checkoutBtn.disabled = true;
+      viewOrderBtn.textContent = 'View Order • ₱0';
       return;
     }
 
@@ -643,7 +749,7 @@
         <div class="cart-item">
           <div>
             <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-meta">${item.size} • ₱${item.price} each • Line total: ₱${lineTotal}</div>
+            <div class="cart-item-meta">${[item.category, item.size, item.choice].filter(Boolean).join(' • ')} • ₱${item.price} each • Line total: ₱${lineTotal}</div>
             <div class="cart-item-actions">
               <button class="qty-btn" type="button" onclick="updateQty(${index}, -1)">-</button>
               <span class="qty-label">${item.qty}</span>
@@ -657,6 +763,7 @@
 
     cartTotalEl.textContent = `₱${getTotal()}`;
     checkoutBtn.disabled = false;
+    viewOrderBtn.textContent = `View Order • ₱${getTotal()}`;
   }
 
   window.updateQty = updateQty;
