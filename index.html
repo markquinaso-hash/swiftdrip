@@ -260,28 +260,46 @@
       background: rgba(0,0,0,.48);
       z-index: 998;
       display: none;
-      align-items: flex-end;
+      align-items: stretch;
       justify-content: center;
-      padding: 14px;
+      padding: 0;
     }
     .cart-backdrop.open { display: flex; }
     .cart-panel {
       width: 100%;
       max-width: 430px;
-      max-height: 88vh;
+      height: 100vh;
       overflow: auto;
       background: rgba(255,255,255,.98);
       backdrop-filter: blur(14px);
-      border-radius: 28px;
-      box-shadow: 0 -14px 34px rgba(0,0,0,.20);
-      padding: 14px;
-      border: 1px solid rgba(80,55,35,.10);
+      border-radius: 0;
+      box-shadow: none;
+      padding: 16px 14px 22px;
+      border: none;
+      display: flex;
+      flex-direction: column;
     }
-    .cart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; }
+    .cart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; }
     .cart-head-actions { display: flex; gap: 7px; align-items: center; }
-    .cart-title { font-size: 17px; font-weight: 900; }
-    .clear-btn, .close-cart-btn { border: none; background: #f1e7db; border-radius: 999px; padding: 8px 12px; cursor: pointer; font-size: 12px; font-weight: 900; color: #4b3020; }
-    .cart-items { max-height: 145px; overflow: auto; margin-bottom: 10px; }
+    .cart-title { font-size: 20px; font-weight: 900; }
+    .clear-btn { border: none; background: #f1e7db; border-radius: 999px; padding: 8px 12px; cursor: pointer; font-size: 12px; font-weight: 900; color: #4b3020; }
+    .close-cart-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 999px;
+      background: #e53935;
+      color: #fff;
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 18px rgba(229,57,53,.28);
+    }
+    .cart-items { flex: 1; max-height: none; overflow: auto; margin-bottom: 12px; }
     .cart-empty { font-size: 12px; color: #7f6b59; padding: 7px 0; font-weight: 700; }
     .cart-item { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 8px 0; border-bottom: 1px solid rgba(80,55,35,.08); }
     .cart-item:last-child { border-bottom: none; }
@@ -498,7 +516,7 @@
       <div class="subcontent">
         <div class="menu-item"><div class="name">Full Mozzarella<span class="fav">❤</span></div><button class="price-btn" data-name="Full Mozzarella" data-size="Regular" data-price="95" data-choice-label="Dips" data-choice-type="multi" data-choice-max="2" data-choice-options="Mayo, Ketchup, Mustard, Hot Sauce">95</button><span></span></div>
         <div class="menu-item"><div class="name">Sausage &amp; Mozzarella</div><button class="price-btn" data-name="Sausage & Mozzarella" data-size="Regular" data-price="85" data-choice-label="Dips" data-choice-type="multi" data-choice-max="2" data-choice-options="Mayo, Ketchup, Mustard, Hot Sauce">85</button><span></span></div>
-        <div class="note">Choose 2 dip: mayo, ketchup, mustard, hot sauce</div>
+        <div class="note">Choose 2 dips: mayo, ketchup, mustard, hot sauce</div>
       </div>
     </details>
 
@@ -593,7 +611,7 @@
       <div class="cart-title" id="cartTitle">Your Order</div>
       <div class="cart-head-actions">
         <button class="clear-btn" id="clearCartBtn" type="button">Clear</button>
-        <button class="close-cart-btn" id="closeCartBtn" type="button">Close</button>
+        <button class="close-cart-btn" id="closeCartBtn" type="button" aria-label="Close order">×</button>
       </div>
     </div>
 
