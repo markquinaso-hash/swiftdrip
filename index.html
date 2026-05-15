@@ -308,6 +308,55 @@
     .checkout-btn:disabled { background: #cabfb5; cursor: not-allowed; box-shadow: none; }
     .hint { font-size: 11px; color: #7f6b59; line-height: 1.4; font-weight: 600; }
 
+
+    .choice-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.48);
+      z-index: 1000;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 14px;
+    }
+    .choice-backdrop.open { display: flex; }
+    .choice-panel {
+      width: 100%;
+      max-width: 430px;
+      background: rgba(255,255,255,.98);
+      border-radius: 28px;
+      box-shadow: 0 -14px 34px rgba(0,0,0,.22);
+      padding: 16px;
+      border: 1px solid rgba(80,55,35,.10);
+    }
+    .choice-title { font-size: 18px; font-weight: 900; margin: 0 0 5px; color: #17110d; }
+    .choice-subtitle { font-size: 12px; color: #6d5a4a; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+    .choice-options { display: grid; gap: 8px; margin-bottom: 14px; }
+    .choice-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 16px;
+      background: #fffaf3;
+      border: 1px solid rgba(80,55,35,.12);
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .choice-option input { width: 18px; height: 18px; accent-color: #211914; }
+    .choice-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .choice-action-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 13px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .choice-action-btn.cancel { background: #f1e7db; color: #4b3020; }
+    .choice-action-btn.add { background: #211914; color: #fff; }
+
     @media (max-width: 460px) {
       .messenger-btn { right: 16px; bottom: 84px; }
     }
@@ -522,6 +571,21 @@
   </section>
 </div>
 
+
+<div class="choice-backdrop" id="choiceBackdrop" aria-hidden="true">
+  <div class="choice-panel" role="dialog" aria-modal="true" aria-labelledby="choiceTitle">
+    <div class="choice-title" id="choiceTitle">Choose an option</div>
+    <div class="choice-subtitle" id="choiceSubtitle"></div>
+    <form id="choiceForm">
+      <div class="choice-options" id="choiceOptions"></div>
+      <div class="choice-actions">
+        <button class="choice-action-btn cancel" id="choiceCancelBtn" type="button">Cancel</button>
+        <button class="choice-action-btn add" type="submit">Add to Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true">
   <div class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
     <div class="cart-head">
@@ -568,6 +632,13 @@
   const viewOrderBtn = document.getElementById('viewOrderBtn');
   const cartBackdrop = document.getElementById('cartBackdrop');
   const closeCartBtn = document.getElementById('closeCartBtn');
+  const choiceBackdrop = document.getElementById('choiceBackdrop');
+  const choiceTitle = document.getElementById('choiceTitle');
+  const choiceSubtitle = document.getElementById('choiceSubtitle');
+  const choiceOptionsEl = document.getElementById('choiceOptions');
+  const choiceForm = document.getElementById('choiceForm');
+  const choiceCancelBtn = document.getElementById('choiceCancelBtn');
+  let pendingChoiceResolver = null;
 
   viewOrderBtn.addEventListener('click', openCart);
   closeCartBtn.addEventListener('click', closeCart);
@@ -576,8 +647,8 @@
   });
 
   document.querySelectorAll('.price-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const choice = getItemChoice(btn);
+    btn.addEventListener('click', async () => {
+      const choice = await getItemChoice(btn);
       if (choice === null) return;
 
       addToCart({
@@ -633,45 +704,79 @@
   }
 
   function getItemChoice(btn) {
-    if (!btn.dataset.choiceOptions) return '';
+    if (!btn.dataset.choiceOptions) return Promise.resolve('');
 
     const options = btn.dataset.choiceOptions.split(',').map(option => option.trim()).filter(Boolean);
     const label = btn.dataset.choiceLabel || 'Choice';
     const type = btn.dataset.choiceType || 'single';
     const max = Number(btn.dataset.choiceMax || 1);
-    const message = type === 'multi'
-      ? `${btn.dataset.name}
-Choose up to ${max} ${label.toLowerCase()} from:
-${options.join(', ')}
+    const inputType = type === 'multi' ? 'checkbox' : 'radio';
+    const fieldName = `choice-${Date.now()}`;
 
-Type your choice(s), separated by comma:`
-      : `${btn.dataset.name}
-Choose one ${label.toLowerCase()} from:
-${options.join(', ')}
+    choiceTitle.textContent = btn.dataset.name;
+    choiceSubtitle.textContent = type === 'multi'
+      ? `Choose up to ${max} ${label.toLowerCase()}${max > 1 ? 's' : ''}.`
+      : `Choose one ${label.toLowerCase()}.`;
 
-Type your choice:`;
+    choiceOptionsEl.innerHTML = options.map((option, index) => `
+      <label class="choice-option">
+        <input type="${inputType}" name="${fieldName}" value="${option}" ${index === 0 && type !== 'multi' ? 'checked' : ''}>
+        <span>${option}</span>
+      </label>
+    `).join('');
 
-    const answer = prompt(message);
-    if (answer === null) return null;
+    choiceBackdrop.classList.add('open');
+    choiceBackdrop.setAttribute('aria-hidden', 'false');
 
-    const selected = answer.split(',').map(value => value.trim()).filter(Boolean);
-    if (!selected.length) {
-      alert(`Please choose ${type === 'multi' ? 'at least one option' : 'one option'} for ${btn.dataset.name}.`);
-      return null;
+    return new Promise(resolve => {
+      pendingChoiceResolver = resolve;
+
+      choiceForm.onsubmit = event => {
+        event.preventDefault();
+        const selectedInputs = [...choiceOptionsEl.querySelectorAll('input:checked')];
+        if (!selectedInputs.length) {
+          alert(`Please choose ${type === 'multi' ? 'at least one option' : 'one option'} for ${btn.dataset.name}.`);
+          return;
+        }
+        if (type === 'multi' && selectedInputs.length > max) {
+          alert(`Please choose only up to ${max} ${label.toLowerCase()}${max > 1 ? 's' : ''}.`);
+          return;
+        }
+        const selected = selectedInputs.map(input => input.value);
+        closeChoicePicker();
+        resolve(`${label}: ${selected.join(', ')}`);
+      };
+
+      choiceOptionsEl.querySelectorAll('input[type="checkbox"]').forEach(input => {
+        input.addEventListener('change', () => {
+          const checked = [...choiceOptionsEl.querySelectorAll('input:checked')];
+          if (checked.length > max) {
+            input.checked = false;
+            alert(`Please choose only up to ${max} ${label.toLowerCase()}${max > 1 ? 's' : ''}.`);
+          }
+        });
+      });
+
+      choiceCancelBtn.onclick = () => {
+        closeChoicePicker();
+        resolve(null);
+      };
+    });
+  }
+
+  choiceBackdrop.addEventListener('click', event => {
+    if (event.target === choiceBackdrop && pendingChoiceResolver) {
+      closeChoicePicker();
+      pendingChoiceResolver(null);
     }
-    if (type === 'multi' && selected.length > max) {
-      alert(`Please choose only up to ${max} ${label.toLowerCase()}.`);
-      return null;
-    }
+  });
 
-    const invalid = selected.find(value => !options.some(option => option.toLowerCase() === value.toLowerCase()));
-    if (invalid) {
-      alert(`${invalid} is not available. Please choose from: ${options.join(', ')}.`);
-      return null;
-    }
-
-    const normalized = selected.map(value => options.find(option => option.toLowerCase() === value.toLowerCase()));
-    return `${label}: ${normalized.join(', ')}`;
+  function closeChoicePicker() {
+    choiceBackdrop.classList.remove('open');
+    choiceBackdrop.setAttribute('aria-hidden', 'true');
+    choiceForm.onsubmit = null;
+    choiceCancelBtn.onclick = null;
+    pendingChoiceResolver = null;
   }
 
   function getCartKey(item) {
