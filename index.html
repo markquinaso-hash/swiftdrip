@@ -301,10 +301,19 @@
     }
     .cart-items { flex: 1; max-height: none; overflow: auto; margin-bottom: 12px; }
     .cart-empty { font-size: 12px; color: #7f6b59; padding: 7px 0; font-weight: 700; }
-    .cart-item { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 8px 0; border-bottom: 1px solid rgba(80,55,35,.08); }
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(80,55,35,.08);
+    }
     .cart-item:last-child { border-bottom: none; }
+    .cart-left { min-width: 0; }
+    .cart-right { display: flex; align-items: center; gap: 6px; }
     .cart-item-name { font-size: 13px; font-weight: 900; margin-bottom: 3px; }
-    .cart-item-meta { font-size: 11px; color: #6d5a4a; font-weight: 700; }
+    .cart-item-meta { font-size: 11px; color: #6d5a4a; font-weight: 700; line-height: 1.4; }
     .cart-item-actions { display: flex; align-items: center; gap: 6px; margin-top: 7px; }
     .qty-btn, .remove-btn { border: none; background: #f1e7db; border-radius: 10px; padding: 5px 9px; cursor: pointer; font-size: 12px; font-weight: 900; }
     .qty-label { min-width: 18px; text-align: center; font-size: 12px; font-weight: 900; }
@@ -873,17 +882,20 @@
 
     cartItemsEl.innerHTML = cart.map((item, index) => {
       const lineTotal = item.price * item.qty;
+      const itemDetails = [item.category, item.size, item.choice].filter(Boolean).join(' • ');
       return `
         <div class="cart-item">
-          <div>
+          <div class="cart-left">
             <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-meta">${[item.category, item.size, item.choice].filter(Boolean).join(' • ')} • ₱${item.price} each • Line total: ₱${lineTotal}</div>
-            <div class="cart-item-actions">
-              <button class="qty-btn" type="button" onclick="updateQty(${index}, -1)">-</button>
-              <span class="qty-label">${item.qty}</span>
-              <button class="qty-btn" type="button" onclick="updateQty(${index}, 1)">+</button>
-              <button class="remove-btn" type="button" onclick="removeItem(${index})">Remove</button>
-            </div>
+            <div class="cart-item-meta">${itemDetails} • ₱${item.price} each</div>
+            <div class="cart-item-meta">Line total: ₱${lineTotal}</div>
+          </div>
+
+          <div class="cart-right">
+            <button class="qty-btn" type="button" onclick="updateQty(${index}, -1)">-</button>
+            <span class="qty-label">${item.qty}</span>
+            <button class="qty-btn" type="button" onclick="updateQty(${index}, 1)">+</button>
+            <button class="remove-btn" type="button" onclick="removeItem(${index})">Remove</button>
           </div>
         </div>
       `;
