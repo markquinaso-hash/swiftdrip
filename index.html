@@ -292,6 +292,7 @@
     .qty-label { min-width: 18px; text-align: center; font-size: 12px; font-weight: 900; }
     .cart-summary { display: grid; gap: 9px; }
     .customer-input { width: 100%; padding: 12px 13px; border: 1px solid rgba(80,55,35,.14); border-radius: 16px; font-size: 13px; background: #fffaf3; font-weight: 700; }
+    .notes-input { resize: vertical; min-height: 78px; font-family: Arial, Helvetica, sans-serif; }
     .totals { display: flex; justify-content: space-between; font-weight: 900; font-size: 16px; }
     .checkout-btn {
       width: 100%;
@@ -443,12 +444,12 @@
       <summary><span class="subgroup-title">MILK-BASED</span><span class="chev">⌄</span></summary>
       <div class="subcontent">
         <div class="price-head"><span>.</span><span>Medium</span><span>Large</span></div>
-        <div class="menu-item"><div class="name">Apollo Choco Strawberry<span class="fav">❤</span></div><button class="price-btn" data-name="Apollo Choco Strawberry (Milk-Based)" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Apollo Choco Strawberry (Milk-Based)" data-size="Large" data-price="115">115</button></div>
-        <div class="menu-item"><div class="name">Dark Chocolate<span class="fav">❤</span></div><button class="price-btn" data-name="Dark Chocolate (Milk-Based)" data-size="Medium" data-price="105">105</button><button class="price-btn" data-name="Dark Chocolate (Milk-Based)" data-size="Large" data-price="120">120</button></div>
+        <div class="menu-item"><div class="name">Apollo Choco Strawberry<span class="fav">❤</span></div><button class="price-btn" data-name="Apollo Choco Strawberry" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Apollo Choco Strawberry" data-size="Large" data-price="115">115</button></div>
+        <div class="menu-item"><div class="name">Dark Chocolate<span class="fav">❤</span></div><button class="price-btn" data-name="Dark Chocolate" data-size="Medium" data-price="105">105</button><button class="price-btn" data-name="Dark Chocolate" data-size="Large" data-price="120">120</button></div>
         <div class="menu-item"><div class="name">Matcha Latte</div><button class="price-btn" data-name="Matcha Latte" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Matcha Latte" data-size="Large" data-price="115">115</button></div>
         <div class="menu-item"><div class="name">Milky Nutella</div><button class="price-btn" data-name="Milky Nutella" data-size="Medium" data-price="110">110</button><button class="price-btn" data-name="Milky Nutella" data-size="Large" data-price="125">125</button></div>
         <div class="menu-item"><div class="name">Milky Oreo<span class="fav">❤</span></div><button class="price-btn" data-name="Milky Oreo" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Milky Oreo" data-size="Large" data-price="115">115</button></div>
-        <div class="menu-item"><div class="name">Salted Caramel</div><button class="price-btn" data-name="Salted Caramel (Milk-Based)" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Salted Caramel (Milk-Based)" data-size="Large" data-price="115">115</button></div>
+        <div class="menu-item"><div class="name">Salted Caramel</div><button class="price-btn" data-name="Salted Caramel" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Salted Caramel" data-size="Large" data-price="115">115</button></div>
         <div class="menu-item"><div class="name">Strawberry Matcha</div><button class="price-btn" data-name="Strawberry Matcha" data-size="Medium" data-price="105">105</button><button class="price-btn" data-name="Strawberry Matcha" data-size="Large" data-price="120">120</button></div>
         <div class="menu-item"><div class="name">Strawberry Milk<span class="fav">❤</span></div><button class="price-btn" data-name="Strawberry Milk" data-size="Medium" data-price="95">95</button><button class="price-btn" data-name="Strawberry Milk" data-size="Large" data-price="110">110</button></div>
         <div class="menu-item"><div class="name">Swift Drip Chocolate<span class="fav">❤</span></div><button class="price-btn" data-name="Swift Drip Chocolate" data-size="Medium" data-price="100">100</button><button class="price-btn" data-name="Swift Drip Chocolate" data-size="Large" data-price="115">115</button></div>
@@ -495,8 +496,8 @@
     <details class="subgroup">
       <summary><span class="subgroup-title">KOREAN CORNDOG</span><span class="chev">⌄</span></summary>
       <div class="subcontent">
-        <div class="menu-item"><div class="name">Full Mozzarella<span class="fav">❤</span></div><button class="price-btn" data-name="Full Mozzarella" data-size="Regular" data-price="95" data-choice-label="Dips" data-choice-type="multi" data-choice-max="2" data-choice-options="Mayo, Ketchup, Mustard, Hot Sauce">Choose Dips • 95</button><span></span></div>
-        <div class="menu-item"><div class="name">Sausage &amp; Mozzarella</div><button class="price-btn" data-name="Sausage & Mozzarella" data-size="Regular" data-price="85" data-choice-label="Dips" data-choice-type="multi" data-choice-max="2" data-choice-options="Mayo, Ketchup, Mustard, Hot Sauce">Choose Dips • 85</button><span></span></div>
+        <div class="menu-item"><div class="name">Full Mozzarella<span class="fav">❤</span></div><button class="price-btn" data-name="Full Mozzarella" data-size="Regular" data-price="95" data-choice-label="Dips" data-choice-type="multi" data-choice-max="2" data-choice-options="Mayo, Ketchup, Mustard, Hot Sauce">95</button><span></span></div>
+        <div class="menu-item"><div class="name">Sausage &amp; Mozzarella</div><button class="price-btn" data-name="Sausage & Mozzarella" data-size="Regular" data-price="85" data-choice-label="Dips" data-choice-type="multi" data-choice-max="2" data-choice-options="Mayo, Ketchup, Mustard, Hot Sauce">85</button><span></span></div>
         <div class="note">Choose 2 dip: mayo, ketchup, mustard, hot sauce</div>
       </div>
     </details>
@@ -513,7 +514,7 @@
     <details class="subgroup">
       <summary><span class="subgroup-title">FRIES</span><span class="chev">⌄</span></summary>
       <div class="subcontent">
-        <div class="menu-item"><div class="name">Regular Fries</div><button class="price-btn" data-name="Regular Fries" data-size="Regular" data-price="50" data-choice-label="Flavor" data-choice-type="single" data-choice-options="BBQ, Cheese, Sour Cream, Plain">Choose Flavor • 50</button><span></span></div>
+        <div class="menu-item"><div class="name">Regular Fries</div><button class="price-btn" data-name="Regular Fries" data-size="Regular" data-price="50" data-choice-label="Flavor" data-choice-type="single" data-choice-options="BBQ, Cheese, Sour Cream, Plain">50</button><span></span></div>
         <div class="note">Flavor: BBQ, cheese, sour cream, plain</div>
         <div class="menu-item"><div class="name">Fries Overload<span class="fav">❤</span></div><button class="price-btn" data-name="Fries Overload" data-size="Regular" data-price="100">100</button><span></span></div>
         <div class="note">made with fries, ground beef, cheese sauce &amp; grated cheese</div>
@@ -533,7 +534,7 @@
     <details class="subgroup">
       <summary><span class="subgroup-title">CHICKEN POPPERS</span><span class="chev">⌄</span></summary>
       <div class="subcontent">
-        <div class="menu-item"><div class="name">Chicken Poppers<span class="fav">❤</span></div><button class="price-btn" data-name="Chicken Poppers" data-size="Regular" data-price="120" data-choice-label="Dip" data-choice-type="single" data-choice-options="Garlic Mayo, Cheese Dip">Choose Dip • 120</button><span></span></div>
+        <div class="menu-item"><div class="name">Chicken Poppers<span class="fav">❤</span></div><button class="price-btn" data-name="Chicken Poppers" data-size="Regular" data-price="120" data-choice-label="Dip" data-choice-type="single" data-choice-options="Garlic Mayo, Cheese Dip">120</button><span></span></div>
         <div class="note">Choose your dip: garlic mayo or cheese dip</div>
       </div>
     </details>
@@ -602,6 +603,7 @@
 
     <div class="cart-summary">
       <input class="customer-input" id="customerName" type="text" placeholder="Customer name (optional)">
+      <textarea class="customer-input notes-input" id="orderNotes" rows="3" placeholder="Notes:"></textarea>
       <div class="totals">
         <span>Total</span>
         <span id="cartTotal">₱0</span>
@@ -614,9 +616,6 @@
 
 <button class="view-order-btn" id="viewOrderBtn" type="button">View Order • ₱0</button>
 
-<a href="https://m.me/swiftdrip.espresso" target="_blank" class="messenger-btn" aria-label="Open Messenger">
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Messenger">
-</a>
 
 </div>
 
@@ -629,6 +628,7 @@
   const checkoutBtn = document.getElementById('checkoutBtn');
   const clearCartBtn = document.getElementById('clearCartBtn');
   const customerNameEl = document.getElementById('customerName');
+  const orderNotesEl = document.getElementById('orderNotes');
   const viewOrderBtn = document.getElementById('viewOrderBtn');
   const cartBackdrop = document.getElementById('cartBackdrop');
   const closeCartBtn = document.getElementById('closeCartBtn');
@@ -814,6 +814,7 @@
 
   function buildMessengerMessage() {
     const customerName = customerNameEl.value.trim();
+    const orderNotes = orderNotesEl.value.trim();
     const lines = [];
 
     lines.push('Hello Swift Drip!');
@@ -831,6 +832,10 @@
 
     if (customerName) {
       lines.push(`Customer Name: ${customerName}`);
+    }
+
+    if (orderNotes) {
+      lines.push(`Notes: ${orderNotes}`);
     }
 
     lines.push('');
