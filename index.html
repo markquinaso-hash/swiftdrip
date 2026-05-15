@@ -742,7 +742,7 @@
 
     choiceTitle.textContent = btn.dataset.name;
     choiceSubtitle.textContent = type === 'multi'
-      ? `Choose up to ${max} ${label.toLowerCase()}${max > 1 ? 's' : ''}.`
+      ? `Choose up to ${max} ${label.toLowerCase()}${max > 1 ? '' : ''}.`
       : `Choose one ${label.toLowerCase()}.`;
 
     choiceOptionsEl.innerHTML = options.map((option, index) => `
